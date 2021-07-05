@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settingFragment"
+        android:title="Settings"
+        android:menuCategory="secondary"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+
+    <item
+        android:id="@+id/assignVehicleFragment"
+        android:title="Home"
+        android:menuCategory="secondary"
+        android:icon="@drawable/ic_baseline_info_24"/>
+
+    <item
+        android:id="@+id/changeLanguageFragment"
+        android:title="Language"
+        android:menuCategory="secondary"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_change_circle_24"/>
+
+
+    <item
+        android:title="info">
+
+        <menu>
+            <item
+                android:title="About app"
+                android:id="@+id/aboutUsFragment"
+                android:icon="@drawable/ic_baseline_account_box_24">
+
+            </item>
+        </menu>
+    </item>
+
+
+
+</menu>

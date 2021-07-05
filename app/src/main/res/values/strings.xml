@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">AGEY</string>
+
+
+    <string name="mord"><b>MINISTRY OF RURAL DEVELOPMENT</b></string>
+    <string name="govtindia">GOVERNMENT OF INDIA</string>
+    <string name="mord_hindi"><b>ग्रामीण विकास मंत्रालय</b></string>
+    <string name="govtindia_hindi">भारत सरकार</string>
+    
+    <string name="Rs">%\u20B9</string>
+
+    <string name="Rs_new">\u20B9</string>
+    <string name="rs_old">\u20A8</string>
+
+
+</resources>

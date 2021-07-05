@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.AssignVehicleFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.nrlm.agey.database.entity.AssignVehicleDataEntity"/>
+        <import type="android.view.View"/>
+        <variable name="assignVehicleModel" type="AssignVehicleDataEntity" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/topLayout"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/space_5dp">
+
+            <com.google.android.material.card.MaterialCardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                card_view:cardElevation="7dp"
+                card_view:strokeColor="@color/brown_200"
+                card_view:strokeWidth="0.5dp">
+
+                <LinearLayout
+                    android:padding="2dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_click"
+                        style="@style/TitleTextViewTheme"
+                        android:text="Select Location" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/ttl_assignVehicle"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:padding="3dp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:hint="Vehicle Regd No: ">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spinner_assignVehicle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:inputType="none"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:scrollbars="vertical"
+            android:layout_marginLeft="@dimen/space_5dp"
+            android:layout_marginRight="@dimen/space_5dp"
+            android:layout_marginBottom="@dimen/space_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/topLayout"
+            android:layout_above="@+id/btn_goToMonthelyTracking">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <com.google.android.material.card.MaterialCardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
+                    card_view:cardElevation="7dp"
+                    card_view:strokeColor="@color/brown_200"
+                    card_view:strokeWidth="0.5dp">
+
+                    <LinearLayout
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TitleTextViewTheme"
+                            android:text="Vehicle Detail" />
+
+
+
+                        <LinearLayout
+                            android:padding="2dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="Vehicle owned by:">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleOwnBy}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="Category of Vehicle:">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleCategory}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="Vehicle Type:">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleType}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint=" Manufacturer of vehicle">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleManufacturer}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_3dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="Vehicle Model:">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleModel}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginBottom="2dp"
+                    card_view:cardElevation="7dp"
+                    card_view:strokeColor="@color/brown_200"
+                    card_view:strokeWidth="0.5dp">
+
+
+                    <LinearLayout
+                        android:padding="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TitleTextViewTheme"
+                            android:text="Payment Details" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_5dp"
+                            android:layout_marginRight="@dimen/space_5dp"
+                            android:layout_marginTop="@dimen/space_1dp"
+                            android:layout_marginBottom="@dimen/space_1dp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:hint="Total cost of vehicle">
+                            <com.google.android.material.textfield.TextInputEditText
+                                app:priceText="@{assignVehicleModel.vehicleTotalAmount}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_regular" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/space_5dp"
+                            android:layout_marginRight="@dimen/space_5dp"
+                            android:layout_marginTop="@dimen/space_1dp"
+                            android:layout_marginBottom="@dimen/space_1dp"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:hint="Loan amount for vehicle">
+                            <com.google.android.material.textfield.TextInputEditText
+                                app:priceText="@{assignVehicleModel.vehicleBalanceLoanAmount}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_regular" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="No. of EMIs"
+                                android:layout_weight="1">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleNoEmi}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="Value per EMI"
+                                android:layout_weight="1">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    app:priceText="@{assignVehicleModel.vehicleEmiPrice}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="@{`Amt. paid: As on:`+assignVehicleModel.vehicleNewPaymentMonth}"
+                                android:layout_weight="0.7">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    app:priceText="@{assignVehicleModel.vehicleAmountRepaid}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/space_5dp"
+                                android:layout_marginRight="@dimen/space_5dp"
+                                android:layout_marginTop="@dimen/space_1dp"
+                                android:layout_marginBottom="@dimen/space_1dp"
+                                android:fontFamily="@font/montserrat_regular"
+                                android:hint="No of EMIs"
+                                android:layout_weight="1.3">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:text="@{assignVehicleModel.vehicleEmiPaid}"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+               <!-- <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:src="@drawable/arrow_next"
+                    android:contentDescription="Submit"
+                    android:layout_margin="16dp" />-->
+
+            </LinearLayout>
+
+
+
+
+        </ScrollView>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_goToMonthelyTracking"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/IconTextContainedButton"
+            android:layout_marginLeft="@dimen/space_10dp"
+            android:layout_marginRight="@dimen/space_10dp"
+            android:layout_marginBottom="@dimen/space_10dp"
+            android:text="Monthely Tracking"
+            android:textSize="16sp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:fontFamily="@font/manrope_semi_bold" />
+
+    </RelativeLayout>
+
+
+</layout>
