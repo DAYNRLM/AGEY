@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.nrlm.agey.model.LoginError"/>
+        <variable
+            name="logInError"
+            type="LoginError" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/top_card_view"
+            app:strokeWidth="2dp"
+            style="@style/carViewTheme">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_5dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/space_10dp"
+                    android:layout_width="match_parent"
+                    android:gravity="center_horizontal"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.card.MaterialCardView
+                        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space_5dp"
+                        card_view:cardBackgroundColor="@color/white"
+                        card_view:cardElevation="7dp"
+                        card_view:strokeColor="@color/orange_500"
+                        card_view:cardCornerRadius="100dp"
+                        card_view:strokeWidth="2dp">
+                        <ImageView
+                            android:layout_margin="@dimen/space_5dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@{logInError.imageId.equalsIgnoreCase(`1`) ? @drawable/ic_baseline_check_circle :@drawable/ic_baseline_error_outline}"/>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <TextView
+
+                    android:id="@+id/tv_errorMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{logInError.errorMessage}"
+                    android:textColor="@color/black"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/manrope_extra_bold"
+                    android:textSize="@dimen/text_20sp"
+                    android:layout_margin="@dimen/space_10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_errorDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginBottom="@dimen/space_10dp"
+                    android:layout_marginRight="@dimen/space_10dp"
+                    android:layout_marginLeft="@dimen/space_10dp"
+                    android:text="@{logInError.errorDetail}"
+                    android:fontFamily="@font/montserrat_regular"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_close"
+                        style="@style/IconTextContainedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/space_10dp"
+                        android:backgroundTint="@color/orange_500"
+                        android:fontFamily="@font/manrope_extra_bold"
+                        android:text="Close"
+                        android:textColor="@color/white" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_ok"
+                        style="@style/IconTextContainedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/space_10dp"
+                        android:backgroundTint="@color/red_500"
+                        android:fontFamily="@font/manrope_extra_bold"
+                        android:text="Ok"
+                        android:textColor="@color/white" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>

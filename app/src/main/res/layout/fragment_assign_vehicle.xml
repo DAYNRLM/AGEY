@@ -15,24 +15,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/topLayout"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/space_5dp">
 
             <com.google.android.material.card.MaterialCardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                card_view:cardElevation="7dp"
-                card_view:strokeColor="@color/brown_200"
-                card_view:strokeWidth="0.5dp">
+                android:id="@+id/top_card_view"
+                style="@style/carViewTheme">
 
                 <LinearLayout
-                    android:padding="2dp"
+                    android:layout_margin="@dimen/space_5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -53,6 +42,7 @@
                         android:hint="Vehicle Regd No: ">
 
                         <AutoCompleteTextView
+
                             android:id="@+id/spinner_assignVehicle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -69,7 +59,9 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
+
+
+
 
         <ScrollView
             android:scrollbars="vertical"
@@ -78,7 +70,7 @@
             android:layout_marginBottom="@dimen/space_5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/topLayout"
+            android:layout_below="@+id/top_card_view"
             android:layout_above="@+id/btn_goToMonthelyTracking">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,7 +117,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:hint="Vehicle owned by:">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleOwnBy}"
+                                    android:text="@{assignVehicleModel.vehicleOwnedBy}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -142,7 +134,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:hint="Category of Vehicle:">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleCategory}"
+                                    app:changedText="@{assignVehicleModel.vehicleCategory}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -159,7 +151,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:hint="Vehicle Type:">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleType}"
+                                    android:id="@+id/et_vehicleType"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -176,7 +168,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:hint=" Manufacturer of vehicle">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleManufacturer}"
+                                    android:id="@+id/et_manufactureOfVehicle"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -193,7 +185,7 @@
                                 android:fontFamily="@font/montserrat_regular"
                                 android:hint="Vehicle Model:">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleModel}"
+                                    android:id="@+id/et_vehicleModel"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -240,7 +232,7 @@
                             android:fontFamily="@font/montserrat_regular"
                             android:hint="Total cost of vehicle">
                             <com.google.android.material.textfield.TextInputEditText
-                                app:priceText="@{assignVehicleModel.vehicleTotalAmount}"
+                                app:priceText="@{assignVehicleModel.vehicleTotalCost}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular" />
@@ -257,7 +249,7 @@
                             android:fontFamily="@font/montserrat_regular"
                             android:hint="Loan amount for vehicle">
                             <com.google.android.material.textfield.TextInputEditText
-                                app:priceText="@{assignVehicleModel.vehicleBalanceLoanAmount}"
+                                app:priceText="@{assignVehicleModel.vehicleLoanAmountFromClf}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular" />
@@ -282,7 +274,7 @@
                                 android:hint="No. of EMIs"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleNoEmi}"
+                                    android:text="@{assignVehicleModel.totalNumberOfEmi}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -300,7 +292,7 @@
                                 android:hint="Value per EMI"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    app:priceText="@{assignVehicleModel.vehicleEmiPrice}"
+                                    app:priceText="@{assignVehicleModel.valuePerEmi}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -325,10 +317,10 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="@{`Amt. paid: As on:`+assignVehicleModel.vehicleNewPaymentMonth}"
+                                android:hint="@{`Amt. paid: As on:`+assignVehicleModel.amountPaidAsOn}"
                                 android:layout_weight="0.7">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    app:priceText="@{assignVehicleModel.vehicleAmountRepaid}"
+                                    app:priceText="@{assignVehicleModel.totalAmountPaid}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -343,10 +335,10 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="No of EMIs"
+                                android:hint="Paid EMIs"
                                 android:layout_weight="1.3">
                                 <com.google.android.material.textfield.TextInputEditText
-                                    android:text="@{assignVehicleModel.vehicleEmiPaid}"
+                                    android:text="@{assignVehicleModel.numberOfEmiPaid}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/montserrat_regular" />
@@ -387,7 +379,7 @@
             android:layout_marginLeft="@dimen/space_10dp"
             android:layout_marginRight="@dimen/space_10dp"
             android:layout_marginBottom="@dimen/space_10dp"
-            android:text="Monthely Tracking"
+            android:text="Monthly Tracking"
             android:textSize="16sp"
             android:insetTop="0dp"
             android:insetBottom="0dp"

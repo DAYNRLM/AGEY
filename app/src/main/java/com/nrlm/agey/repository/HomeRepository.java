@@ -8,10 +8,16 @@ import androidx.annotation.NonNull;
 import com.nrlm.agey.database.AppDatabase;
 import com.nrlm.agey.database.dao.AssignVehicleDao;
 import com.nrlm.agey.database.dao.LanguageDao;
+import com.nrlm.agey.database.dao.YesNoDao;
+import com.nrlm.agey.database.entity.AssessmentEntity;
 import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
+import com.nrlm.agey.database.entity.CategoryEntity;
 import com.nrlm.agey.database.entity.LanguageEntity;
+import com.nrlm.agey.database.entity.NotOperationalEntity;
+import com.nrlm.agey.database.entity.YesNoEntity;
 import com.nrlm.agey.utils.AppConstant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -20,8 +26,6 @@ import java.util.concurrent.Future;
 public class HomeRepository extends BaseRepository{
 
     private static HomeRepository mInstance ;
-    LanguageDao languageDao;
-    AssignVehicleDao assignVehicleDao;
 
     public static synchronized HomeRepository getInstance(Application application){
         if(mInstance==null){
@@ -31,9 +35,11 @@ public class HomeRepository extends BaseRepository{
     }
 
     private HomeRepository(@NonNull Application application){
-        languageDao =AppDatabase.getDatabase(application).languageDao();
-        assignVehicleDao =AppDatabase.getDatabase(application).assignVehiclelDao();
+        super(application);
+        getAllInstance();
     }
+
+    /*********inseart dummy data for language ***********/
     public void inseartAllLanguage(){
         String[] langId = AppConstant.ConstantObject.getLanguage_id();
         String[] langCode =AppConstant.ConstantObject.getLanguage_code();
@@ -55,6 +61,77 @@ public class HomeRepository extends BaseRepository{
             });
         }
 
+    }
+
+    public void insertReasonAssesment(){
+        String[] reason = AppConstant.ConstantObject.getReasonNotOperational();
+        String[] assessement =AppConstant.ConstantObject.getAssesmentCLF();
+
+
+        for(int i=0;i<reason.length;i++){
+            NotOperationalEntity notOperationalEntity = new NotOperationalEntity();
+            notOperationalEntity.reasonId =""+(i+1);
+            notOperationalEntity.reasonName=reason[i];
+
+            AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    notOperationalDao.insertAll(notOperationalEntity);
+                }
+            });
+        }
+
+        for(int i=0;i<assessement.length;i++){
+            AssessmentEntity assessmentEntity = new AssessmentEntity();
+            assessmentEntity.assessmentId =""+(i+1);
+            assessmentEntity.assessmentName= assessement[i];
+
+
+            AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    assessmentDao.insertAll(assessmentEntity);
+                }
+            });
+        }
+
+    }
+
+    public List<AssessmentEntity> getAssessmentList(){
+        List<AssessmentEntity> assessmentEntitiesItem =null;
+
+        try {
+            Callable<List<AssessmentEntity>> callable =new Callable<List<AssessmentEntity>>() {
+                @Override
+                public List<AssessmentEntity> call() throws Exception {
+                    return assessmentDao.getAllData();
+                }
+            };
+            Future<List<AssessmentEntity>> future = Executors.newSingleThreadExecutor().submit(callable);
+            assessmentEntitiesItem = future.get();
+
+        }catch (Exception e){
+
+        }
+        return assessmentEntitiesItem;
+    }
+
+    public List<NotOperationalEntity> getReasonList(){
+        List<NotOperationalEntity> dataList = null;
+        try {
+            Callable<List<NotOperationalEntity>> callable = new Callable<List<NotOperationalEntity>>() {
+                @Override
+                public List<NotOperationalEntity> call() throws Exception {
+                    return notOperationalDao.getAllData();
+                }
+            };
+            Future<List<NotOperationalEntity>> future = Executors.newSingleThreadExecutor().submit(callable);
+            dataList = future.get();
+
+        }catch (Exception e){
+
+        }
+        return dataList;
     }
 
     public List<LanguageEntity> getLanguagedata(){
@@ -92,7 +169,7 @@ public class HomeRepository extends BaseRepository{
         String[] painYear = AppConstant.ConstantObject.getVehiclePaidYear();
         String[] paidEmi = AppConstant.ConstantObject.getVehiclePaidEmi();
 
-        for(int i=0;i<AppConstant.ConstantObject.getVehicleNumber().length;i++){
+        /*for(int i=0;i<AppConstant.ConstantObject.getVehicleNumber().length;i++){
             AssignVehicleDataEntity assignVehicleDataEntity= new AssignVehicleDataEntity();
             assignVehicleDataEntity.vehicleRegistrationNo=vehNum[i];
             assignVehicleDataEntity.vehicleType=type[i];
@@ -115,7 +192,7 @@ public class HomeRepository extends BaseRepository{
                 }
             });
 
-        }
+        }*/
     }
 
 
@@ -157,4 +234,143 @@ public class HomeRepository extends BaseRepository{
         }
         return assignVehicleDataEntity;
     }
+
+    public List<String> getVehicleRegNum(){
+        List<String> regNumList = new ArrayList<>();
+        List<AssignVehicleDataEntity> assingList =getVehicleData();
+
+        for(AssignVehicleDataEntity data:assingList){
+            regNumList.add(data.vehicleRegNumber);
+        }
+        return regNumList;
+    }
+
+    /************yesNoDao**************/
+    public void insertYesNoData(){
+        YesNoEntity yesEntity = new YesNoEntity();
+        yesEntity.yesNoId="Y";
+        yesEntity.yesNoName="Yes";
+
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                yesNoDao.insertAll(yesEntity);
+            }
+        });
+
+        YesNoEntity noEntity = new YesNoEntity();
+        noEntity.yesNoId="N";
+        noEntity.yesNoName="No";
+
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                yesNoDao.insertAll(noEntity);
+            }
+        });
+    }
+
+    public List<YesNoEntity> getYesEntityData(){
+        List<YesNoEntity> yesNoEntities =null;
+        try {
+            Callable<List<YesNoEntity>> callable = new Callable<List<YesNoEntity>>() {
+                @Override
+                public List<YesNoEntity> call() throws Exception {
+                    return yesNoDao.getAllData();
+                }
+            };
+            Future<List<YesNoEntity>> future  = Executors.newSingleThreadExecutor().submit(callable);
+            yesNoEntities = future.get();
+
+        } catch (Exception e) {
+
+        }
+        return yesNoEntities;
+    }
+
+    public String getVehicleType(String vehicle){
+        String vehicleType ="";
+        try {
+            Callable<String> callable = new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    return   vehicleTypedao.getVehicleType(vehicle).type_name;
+                }
+            };
+
+            Future<String> future = Executors.newSingleThreadExecutor().submit(callable);
+            vehicleType =future.get();
+
+        } catch (Exception e) {
+            appUtils.showLog("expection : "+e,HomeRepository.class);
+
+        }
+        return vehicleType;
+
+    }
+
+    public String getManufacturerName(String vehicle_manufacture_id ){
+        String manfacturerName ="";
+        try {
+            Callable<String> callable = new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    return   manfacturerDao.getManufacturename(vehicle_manufacture_id).manufacturer_name;
+                }
+            };
+
+            Future<String> future = Executors.newSingleThreadExecutor().submit(callable);
+            manfacturerName =future.get();
+
+        } catch (Exception e) {
+            appUtils.showLog("expection : "+e,HomeRepository.class);
+
+        }
+        return manfacturerName;
+    }
+
+    public String getModelName(String vehicle_manufacture_id ,String vehicle_model_id){
+        String modelName ="";
+        try {
+            Callable<String> callable = new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    return   manfacturerModelDao.getModelname(vehicle_manufacture_id,vehicle_model_id).veh_model_name;
+                }
+            };
+
+            Future<String> future = Executors.newSingleThreadExecutor().submit(callable);
+            modelName =future.get();
+
+        } catch (Exception e) {
+            appUtils.showLog("expection : "+e,HomeRepository.class);
+
+        }
+        return modelName;
+    }
+
+
+    public List<CategoryEntity> getAllCategory(){
+        List<CategoryEntity> categoryEntities =null;
+        try {
+            Callable<List<CategoryEntity>> callable = new Callable<List<CategoryEntity>>() {
+                @Override
+                public List<CategoryEntity> call() throws Exception {
+                    return categoryDao.getAllData();
+                }
+            };
+
+            Future<List<CategoryEntity>> future = Executors.newSingleThreadExecutor().submit(callable);
+            categoryEntities =future.get();
+
+        }catch (Exception e){
+
+        }
+        return categoryEntities;
+    }
+
+    public  void deleteDataBaseTable(){
+        deleteTables();
+    }
+
 }

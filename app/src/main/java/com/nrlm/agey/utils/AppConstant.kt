@@ -12,6 +12,11 @@ public class AppConstant {
          val language_code = arrayOf("en", "hi", "bn", "ta", "gu", "kha", "ml", "or", "pa", "as", "mi", "mr")
 
 
+         val reasonNotOperational = arrayOf("Under repair", "Not viable", "Non-availability of driver", "Accident", "Others")
+         val assesmentCLF = arrayOf("Poor", "Good", "Excellent")
+
+         val TAG = "tag"
+
 
        /* fun getRsSymbol(str: String): String? {
            // return str + " " + view.context.resources.getString(R.string.Rs_new)

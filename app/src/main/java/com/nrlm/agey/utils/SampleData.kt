@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
     companion object{
         var defaultKilometer = MutableLiveData<Long>(20L)
+        var openingKm = MutableLiveData<String>("")
 
     }
 }

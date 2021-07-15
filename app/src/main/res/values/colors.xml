@@ -13,6 +13,9 @@
     <color name="brown_200">#BCAAA4</color>
     <color name="lime_compliment">#cadb00</color>
     <color name="screen_background">#FFF3E0</color>
+    <color name="screen_gray_background">#FAFAFA</color>
+    <color name="red_500">#F44336</color>
+    <color name="teal_a400">#1DE9B6</color>
 
 
 

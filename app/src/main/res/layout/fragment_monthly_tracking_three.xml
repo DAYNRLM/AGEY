@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.MonthlyTrackingFragmentThree">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/top_card_view"
+            style="@style/carViewTheme">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/brown_200"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/space_5dp"
+                        android:layout_weight="0.7"
+                        android:fontFamily="@font/manrope_extra_bold"
+                        android:padding="@dimen/space_2dp"
+                        android:text="Registration Number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_regNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/space_5dp"
+                        android:layout_weight="1.3"
+                        android:fontFamily="@font/manrope_extra_bold"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/space_2dp"
+                        android:text="HR-12U-2871"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/take_photo_cardview"
+            android:layout_below="@+id/top_card_view"
+            style="@style/carViewTheme">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_5dp"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload Insurance Doc"
+                    android:background="@color/brown_200"
+                    android:gravity="center_horizontal" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            style="@style/carViewTheme"
+                            app:strokeColor="@color/teal_200">
+
+                            <LinearLayout
+                                android:layout_margin="5dp"
+                                android:padding="@dimen/space_2dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_takePhoto"
+                                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/montserrat_regular"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    android:text="Take Photo"
+                                    app:strokeColor="@color/orange_500"
+                                    android:textColor="@color/black"/>
+
+
+                            </LinearLayout>
+
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/ic_launcher"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_below="@+id/take_photo_cardview"
+            style="@style/carViewTheme">
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="@dimen/space_5dp">
+
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btn_confirm"
+                   style="@style/IconTextContainedButton"
+                   android:layout_width="130dp"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="@dimen/space_10dp"
+                   android:fontFamily="@font/manrope_semi_bold"
+                   android:insetTop="0dp"
+                   android:insetBottom="0dp"
+                   android:text="confirm"
+                   app:icon="@drawable/ic_baseline_confirm"
+                   app:iconGravity="end"/>
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/btn_edit"
+                   style="@style/IconTextContainedButton"
+                   android:layout_width="130dp"
+                   android:layout_alignParentRight="true"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="@dimen/space_10dp"
+                   android:fontFamily="@font/manrope_semi_bold"
+                   android:insetTop="0dp"
+                   android:insetBottom="0dp"
+                   android:text="Edit"
+                   app:icon="@drawable/ic_baseline_edit"
+                   app:iconGravity="end"/>
+
+
+
+           </RelativeLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_saveData"
+            style="@style/IconTextContainedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/space_10dp"
+            android:layout_marginRight="@dimen/space_10dp"
+            android:layout_marginBottom="@dimen/space_10dp"
+            android:fontFamily="@font/manrope_semi_bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="Save Data "
+            android:textSize="16sp"
+            app:iconGravity="textEnd"
+            app:icon="@drawable/ic_baseline_save_data"/>
+
+    </RelativeLayout>
+</layout>

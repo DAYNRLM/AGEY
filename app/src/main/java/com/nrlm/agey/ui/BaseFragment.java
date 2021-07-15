@@ -16,13 +16,17 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewbinding.ViewBinding;
 
 import com.nrlm.agey.network.retrofitCall.RetrofitClient;
+import com.nrlm.agey.network.vollyCall.VolleyResult;
+import com.nrlm.agey.network.vollyCall.VolleyService;
 import com.nrlm.agey.repository.AppRepository;
 import com.nrlm.agey.repository.BaseAllRepository;
 import com.nrlm.agey.repository.BaseRepository;
 import com.nrlm.agey.ui.login.AuthViewModelfactory;
 import com.nrlm.agey.utils.AppDeviceInfoUtils;
 import com.nrlm.agey.utils.AppSharedPreferences;
+import com.nrlm.agey.utils.AppUtils;
 import com.nrlm.agey.utils.CustomProgressDialog;
+import com.nrlm.agey.utils.GetAllInstance;
 
 public abstract class BaseFragment<VM extends ViewModel,
         B extends ViewBinding,
@@ -35,6 +39,11 @@ public abstract class BaseFragment<VM extends ViewModel,
     public CustomProgressDialog customProgressDialog;
     public AppDeviceInfoUtils deviceUtils;
     public NavController navController;
+    public AppUtils  appUtils ;
+    public GetAllInstance getAllInstance;
+    public VolleyResult mResultCallBack = null;
+    public VolleyService volleyService;
+
 
     @Nullable
     @Override
@@ -47,6 +56,11 @@ public abstract class BaseFragment<VM extends ViewModel,
         deviceUtils = AppDeviceInfoUtils.getInstance(getContext());
         navController = NavHostFragment.findNavController(this);
         client = RetrofitClient.getInstance();
+        appUtils =AppUtils.getInstance();
+        getAllInstance =GetAllInstance.getInstance(getCurrentContext());
+        volleyService=VolleyService.getInstance(getCurrentContext());
+
+        this.onFragmentReady();
         return binding.getRoot();
     }
 
@@ -55,4 +69,5 @@ public abstract class BaseFragment<VM extends ViewModel,
     public abstract R getFragmentRepository();
     public abstract Context getCurrentContext();
     public abstract  VMF getFactory();
+    public abstract  void onFragmentReady();
 }

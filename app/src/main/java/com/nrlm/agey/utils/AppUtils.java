@@ -1,10 +1,19 @@
 package com.nrlm.agey.utils;
 
+import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 public class AppUtils {
     public static AppUtils utilsInstance;
@@ -30,5 +39,52 @@ public class AppUtils {
         if (wantToShow) {
             Log.d(application.getName(), logMsg);
         }
+    }
+
+    public String loadAssetData(Context context, String filName) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(filName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    @NonNull
+    public String getSha256(@NonNull String plain_text) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] hash = null;
+        hash = digest.digest(plain_text.getBytes(StandardCharsets.UTF_8));
+        return bytesToHex(hash);
+    }
+
+    @NonNull
+    private String bytesToHex(@NonNull byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1)
+                hexString.append('0');
+            hexString.append(hex);
+        }
+        return hexString.toString();
+    }
+
+    public String getRandomOtp() {
+        Random random = new Random();
+        int otp = 1000 + random.nextInt(9000);
+        return "" + otp;
     }
 }

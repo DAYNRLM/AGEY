@@ -4,70 +4,60 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.nrlm.agey.model.response.MainDataResponse;
+
+import java.util.List;
+
 @Entity
 public class AssignVehicleDataEntity {
+
     @PrimaryKey(autoGenerate = true)
     public int id;
-    @ColumnInfo(name = "vehicle_RegistrationNo")
-    public String vehicleRegistrationNo;
+    @ColumnInfo(name = "block_code")
+    public String blockCode;
+    @ColumnInfo(name = "owner_contribution")
+    public String ownerContribution;
+    @ColumnInfo(name = "grant_amount_received")
+    public String grantAmountReceived;
+    @ColumnInfo(name = "number_of_emi_paid")
+    public String numberOfEmiPaid;
+    @ColumnInfo(name = "total_number_of_emi")
+    public String totalNumberOfEmi;
     @ColumnInfo(name = "vehicle_Category")
     public String vehicleCategory;
     @ColumnInfo(name = "vehicle_Type")
     public String vehicleType;
-    @ColumnInfo(name = "vehicle_Manufacturer")
-    public String vehicleManufacturer;
     @ColumnInfo(name = "vehicle_Model")
     public String vehicleModel;
-    @ColumnInfo(name = "vehicle_PreviousPaymentDate")
-    public String vehiclePreviousPaymentDate;
-    @ColumnInfo(name = "vehicle_NewPaymentYear")
-    public String vehicleNewPaymentYear;
-    @ColumnInfo(name = "vehicle_NewPaymentMonth")
-    public String vehicleNewPaymentMonth;
-    @ColumnInfo(name = "vehicle_OpenKMReading")
-    public String vehicleOpenKMReading;
-    @ColumnInfo(name = "vehicle_ClosingKMReading")
-    public String vehicleClosingKMReading;
-    @ColumnInfo(name = "vehicle_AmountRepaid")
-    public String vehicleAmountRepaid;
-    @ColumnInfo(name = "vehicle_BalanceLoanAmount")
-    public String vehicleBalanceLoanAmount;
-    @ColumnInfo(name = "vehicle_NoOfEMIOverdue")
-    public String vehicleNoOfEMIOverdue;
-    @ColumnInfo(name = "vehicle_NetIncomeFromAGEY")
-    public String vehicleNetIncomeFromAGEY;
-    @ColumnInfo(name = "vehicle_NoOfSpecialTrips")
-    public String vehicleNoOfSpecialTrips;
-    @ColumnInfo(name = "isVehicleRunsOnPredefinedRoute")
-    public boolean isVehicleRunsOnPredefinedRoute;
-    @ColumnInfo(name = "vehicle_TotalRunningDays")
-    public String vehicleTotalRunningDays;
-    @ColumnInfo(name = "vehicle_NoOfTripsOnPredefinedRoute")
-    public String vehicleNoOfTripsOnPredefinedRoute;
-    @ColumnInfo(name = "vehicle_NoOfTripsFromVillage")
-    public String vehicleNoOfTripsFromVillage;
-    @ColumnInfo(name = "isVehicleRenewalMonthForRoadTaxDeposit")
-    public boolean isVehicleRenewalMonthForRoadTaxDeposit;
-    @ColumnInfo(name = "vehicle_TaxDepositedAmount")
-    public String vehicleTaxDepositedAmount;
-    @ColumnInfo(name = "IsVehicleInsuranceRenewed")
-    public String IsVehicleInsuranceRenewed;
-    @ColumnInfo(name = "vehicle_UploadedDocument")
-    public byte[] vehicleUploadedDocument;
-    @ColumnInfo(name = "isVehicleOperational")
-    public boolean isVehicleOperational;
-    @ColumnInfo(name = "vehicle_ReasonofNotBeingOperational")
-    public String vehicleReasonofNotBeingOperational;
-    @ColumnInfo(name = "vehicle_Assessment")
-    public String vehicleAssessment;
-    @ColumnInfo(name = "vehicle_OwnBy")
-    public String vehicleOwnBy;
-    @ColumnInfo(name = "vehicle_TotalAMount")
-    public String vehicleTotalAmount;
-    @ColumnInfo(name = "vehicle_NoEmi")
-    public String vehicleNoEmi;
-    @ColumnInfo(name = "vehicle_Emi_price_month")
-    public String vehicleEmiPrice;
-    @ColumnInfo(name = "vehicle_Emi_paid")
-    public String vehicleEmiPaid;
+    @ColumnInfo(name = "vehicle_date_of_registration")
+    public String vehicleDateOfRegistration;
+    @ColumnInfo(name = "vehicle_owned_by")
+    public String vehicleOwnedBy;
+    @ColumnInfo(name = "vehicle_reg_number")
+    public String vehicleRegNumber;
+    @ColumnInfo(name = "vehicle_loan_amount_from_other")
+    public String vehicleLoanAmountFromOther;
+    @ColumnInfo(name = "department_from_grant_amount_recived")
+    public String departmentFromGrantAmountRecived;
+    @ColumnInfo(name = "vehicle_loan_amount_from_clf")
+    public String vehicleLoanAmountFromClf;
+    @ColumnInfo(name = "vehicle_insurance_type")
+    public String vehicleInsuranceType;
+    @ColumnInfo(name = "vehicle_total_cost")
+    public String vehicleTotalCost;
+    @ColumnInfo(name = "total_amount_paid")
+    public String totalAmountPaid;
+    @ColumnInfo(name = "vehicle_running_in_fixed_route")
+    public String vehicleRunningInFixedRoute;
+    @ColumnInfo(name = "vehicle_manufacture")
+    public String vehicleManufacture;
+    @ColumnInfo(name = "value_per_emi")
+    public String valuePerEmi;
+    @ColumnInfo(name = "amount_paid_as_on")
+    public String amountPaidAsOn;
+    @ColumnInfo(name = "insurance_renewal_data")
+    public String insuranceRenewalData;
+
 }

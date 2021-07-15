@@ -11,16 +11,21 @@ import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
 import com.nrlm.agey.R;
+import com.nrlm.agey.utils.AppSharedPreferences;
 import com.nrlm.agey.utils.AppUtils;
 
 public class MpinActivity extends AppCompatActivity {
 
     public static final String abc ="1";
+    AppSharedPreferences appSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mpin);
+
+
+        appSharedPreferences = AppSharedPreferences.getInstance(this);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         NavController navController = navHostFragment.getNavController();
@@ -29,7 +34,7 @@ public class MpinActivity extends AppCompatActivity {
         NavGraph graph = inflater.inflate(R.navigation.mpin_nav_graph);
 
         //set condition for shared preference ...and show fragment
-        if(abc.equalsIgnoreCase("2")){
+        if(!appSharedPreferences.getMpin().equalsIgnoreCase("")){
             graph.setStartDestination(R.id.verifyMpinFragment);
         }else {
             graph.setStartDestination(R.id.setMpinFragment2);

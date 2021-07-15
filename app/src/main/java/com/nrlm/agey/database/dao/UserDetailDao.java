@@ -16,5 +16,8 @@ public interface UserDetailDao {
     void insertAll(UserDetailEntity userDetail);
 
     @Query("select * from UserDetailEntity ")
-    LiveData<List<UserDetailEntity>> getAllData();
+   List<UserDetailEntity> getAllData();
+
+    @Query("DELETE FROM UserDetailEntity")
+    void deleteTable();
 }

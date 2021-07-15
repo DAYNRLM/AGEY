@@ -65,7 +65,72 @@ public class AppSharedPreferences {
     }
 
 
-    public void removeData(){
+    public String getLoginStatus() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_LOGIN_STATUS, "");
+    }
+
+    public void setLoginStatus(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_LOGIN_STATUS,value);
+        prefsEditor.apply();
+    }
+
+    public String getMpin() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_APP_MPIN, "");
+    }
+
+    public void setMpin(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_APP_MPIN,value);
+        prefsEditor.apply();
+    }
+
+
+    public String getVehicleRegNum() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_VEHICLE_REG_NUM, "");
+    }
+
+    public void setVehicleRegNum(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_VEHICLE_REG_NUM,value);
+        prefsEditor.apply();
+    }
+
+    public String getValidUserId() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_VALID_USER_ID, "");
+    }
+
+    public void setValidUserId(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_VALID_USER_ID,value);
+        prefsEditor.apply();
+    }
+
+    public String getBlockCode() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_BLOCK_CODE, "");
+    }
+
+    public void setBlockCode(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_BLOCK_CODE,value);
+        prefsEditor.apply();
+    }
+
+
+    public void removeDataAtLogout(){
+
         removeKeyData(PrefrenceManager.PREF_KEY_SHG_CODE);
+        removeKeyData(PrefrenceManager.PREF_KEY_LOGIN_STATUS);
+        removeKeyData(PrefrenceManager.PREF_KEY_DEVICE_IMEI);
+        removeKeyData(PrefrenceManager.PREF_KEY_DEVICE_INFO);
+        removeKeyData(PrefrenceManager.PREF_KEY_VEHICLE_REG_NUM);
+        removeKeyData(PrefrenceManager.PREF_KEY_VALID_USER_ID);
+        removeKeyData(PrefrenceManager.PREF_KEY_BLOCK_CODE);
+
     }
 }

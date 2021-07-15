@@ -1,0 +1,365 @@
+{
+  "data": {
+    "assign_data": [
+      {
+        "block_name": "ACHHNERA",
+        "vehicle_data": [
+          {
+            "owner_contribution": "100000.00",
+            "grant_amount_received": "100000.00",
+            "number_of_emi_paid": "5",
+            "total_number_of_emi": "12",
+            "vehicle_category": "G",
+            "vehicle_date_of_registration": "01-12-2020",
+            "amount_paid_as_on": "Apr-21",
+            "value_per_emi": "1000.00",
+            "vehicle_model": "1",
+            "vehicle_owned_by": "CLF",
+            "vehicle_type": "4W-HMV",
+            "vehicle_manufacture": "3",
+            "total_amount_paid": "5000.00",
+            "vehicle_running_in_fixed_route": "Y",
+            "vehicle_total_cost": "500000.00",
+            "vehicle_insurance_type": "Comprehensive",
+            "vehicle_loan_amount_from_clf": "100000.00",
+            "monthly_report": [
+              {
+                "Errorstatus": "Vechile Monthly Report Not Found !!!"
+              }
+            ],
+            "insurance_renewal_data": "06-04-2021",
+            "department_from_grant_amount_recived": "0",
+            "vehicle_reg_number": "OR001",
+            "vehicle_loan_amount_from_other": "100000.00"
+          }
+        ],
+        "block_code": "3120002"
+      }
+    ],
+    "master_data": {
+      "category_data": [
+        {
+          "category_name": "Goods",
+          "category_id": "G"
+        },
+        {
+          "category_name": "Pessenger",
+          "category_id": "P"
+        }
+      ],
+      "vehicle_type": [
+        {
+          "type_name": "E Rickshaw",
+          "type_id": "E-RICK"
+        },
+        {
+          "type_name": " 3 wheeler Auto",
+          "type_id": "3W-WA"
+        },
+        {
+          "type_name": "4 wheeler - LMV",
+          "type_id": "4W-LMW"
+        },
+        {
+          "type_name": "4 wheeler HMV",
+          "type_id": "4W-HMV"
+        },
+        {
+          "type_name": "4 wheeler HTV",
+          "type_id": "4W-HTV"
+        }
+      ],
+      "vehicle_manufacturer": [
+        {
+          "manufacturer_id": "1",
+          "vech_model_info": [
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Bajaj Compact RE"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Bajaj Maxima C"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Bajaj Maxima X Wide"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Bajaj Maxima Z"
+            },
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Bajaj Compact RE"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Bajaj Maxima C"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Bajaj Maxima X Wide"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Bajaj Maxima Z"
+            }
+          ],
+          "manufacturer_name": "Bajaj"
+        },
+        {
+          "manufacturer_id": "2",
+          "vech_model_info": [
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Kinetic DX"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Lohia Comfort"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Lohia Narain Cargo"
+            },
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Kinetic DX"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Lohia Comfort"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Lohia Narain Cargo"
+            }
+          ],
+          "manufacturer_name": "E-rickshaw"
+        },
+        {
+          "manufacturer_id": "3",
+          "vech_model_info": [
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Mahindra Alfa"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Mahindra Alfa Plus"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Mahindra Bolero B4"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Mahindra Bolero B6"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Mahindra Bolero B6 Opt"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Mahindra Bolero Pik-Up"
+            },
+            {
+              "veh_model_id": "7",
+              "veh_model_name": "Mahindra Jeeto"
+            },
+            {
+              "veh_model_id": "8",
+              "veh_model_name": "Mahindra Treo Zor"
+            },
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Mahindra Alfa"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Mahindra Alfa Plus"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Mahindra Bolero B4"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Mahindra Bolero B6"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Mahindra Bolero B6 Opt"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Mahindra Bolero Pik-Up"
+            },
+            {
+              "veh_model_id": "7",
+              "veh_model_name": "Mahindra Jeeto"
+            },
+            {
+              "veh_model_id": "8",
+              "veh_model_name": "Mahindra Treo Zor"
+            }
+          ],
+          "manufacturer_name": "Mahindra"
+        },
+        {
+          "manufacturer_id": "4",
+          "vech_model_info": [
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Piaggio Ape City"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Piaggio Ape City Plus"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Piaggio Ape DX"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Piaggio Ape E City"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Piaggio Ape Xtra LDX"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Piaggio Ape Xtra LDX Plus"
+            },
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Piaggio Ape City"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Piaggio Ape City Plus"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Piaggio Ape DX"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Piaggio Ape E City"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Piaggio Ape Xtra LDX"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Piaggio Ape Xtra LDX Plus"
+            }
+          ],
+          "manufacturer_name": "Piaggio"
+        },
+        {
+          "manufacturer_id": "5",
+          "vech_model_info": [
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Tata Ace gold 2100/Diesel"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Tata Ace gold 2100/Petrol"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Tata Ace gold 2250/CNG"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Tata Magic"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Tata Magic Iris Van, 4 (2 + 2), Diesel"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Tata Sumo 4X4"
+            },
+            {
+              "veh_model_id": "7",
+              "veh_model_name": "Tata Sumo 4X4 Plus"
+            },
+            {
+              "veh_model_id": "8",
+              "veh_model_name": "Tata Sumo DX"
+            },
+            {
+              "veh_model_id": "9",
+              "veh_model_name": "Tata Sumo DX TC"
+            },
+            {
+              "veh_model_id": "10",
+              "veh_model_name": "Tata Sumo Gold CX PS AC"
+            },
+            {
+              "veh_model_id": "1",
+              "veh_model_name": "Tata Ace gold 2100/Diesel"
+            },
+            {
+              "veh_model_id": "2",
+              "veh_model_name": "Tata Ace gold 2100/Petrol"
+            },
+            {
+              "veh_model_id": "3",
+              "veh_model_name": "Tata Ace gold 2250/CNG"
+            },
+            {
+              "veh_model_id": "4",
+              "veh_model_name": "Tata Magic"
+            },
+            {
+              "veh_model_id": "5",
+              "veh_model_name": "Tata Magic Iris Van, 4 (2 + 2), Diesel"
+            },
+            {
+              "veh_model_id": "6",
+              "veh_model_name": "Tata Sumo 4X4"
+            },
+            {
+              "veh_model_id": "7",
+              "veh_model_name": "Tata Sumo 4X4 Plus"
+            },
+            {
+              "veh_model_id": "8",
+              "veh_model_name": "Tata Sumo DX"
+            },
+            {
+              "veh_model_id": "9",
+              "veh_model_name": "Tata Sumo DX TC"
+            },
+            {
+              "veh_model_id": "10",
+              "veh_model_name": "Tata Sumo Gold CX PS AC"
+            }
+          ],
+          "manufacturer_name": "Tata"
+        }
+      ]
+    },
+    "user_data": {
+      "app_version": "1.0.0",
+      "user_id": "UPAGANANDS",
+      "server_date_time": "2021-07-09",
+      "language_id": 1,
+      "mobile_number": "9638527412",
+      "login_attempt": 2,
+      "logout_days": "5"
+    }
+  },
+  "message": "success",
+  "status": 1
+}

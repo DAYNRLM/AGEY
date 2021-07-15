@@ -48,6 +48,11 @@ public class ChangeLanguageFragment extends BaseFragment<HomeViewModel, Fragment
     }
 
     @Override
+    public void onFragmentReady() {
+
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 

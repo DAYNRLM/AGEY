@@ -18,4 +18,7 @@ public interface LanguageDao {
 
     @Query("select * from LanguageEntity ")
     List<LanguageEntity> getAllData();
+
+    @Query("DELETE FROM LanguageEntity")
+    void deleteTable();
 }

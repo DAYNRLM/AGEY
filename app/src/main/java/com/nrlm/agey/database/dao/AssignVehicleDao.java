@@ -20,8 +20,11 @@ public interface AssignVehicleDao {
     @Query("select * from AssignVehicleDataEntity")
     List<AssignVehicleDataEntity> getAllData();
 
-    @Query("select * from AssignVehicleDataEntity WHERE vehicle_RegistrationNo =:vehicleRegNum")
+    @Query("select * from AssignVehicleDataEntity WHERE vehicle_reg_number =:vehicleRegNum")
     AssignVehicleDataEntity getAllData(String vehicleRegNum);
+
+    @Query("DELETE FROM AssignVehicleDataEntity")
+    public void deleteTable();
 
 
 }

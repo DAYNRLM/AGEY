@@ -15,6 +15,13 @@
         android:icon="@drawable/ic_baseline_info_24"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/logOut"
+        android:title="Logout"
+        android:menuCategory="secondary"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_baseline_logout"/>
+
 
 
 </menu>

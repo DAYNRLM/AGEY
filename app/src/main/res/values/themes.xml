@@ -46,4 +46,24 @@
         <item name="android:padding">@dimen/space_3dp</item>
         <item name="fontFamily">@font/manrope_extra_bold</item>
     </style>
+
+
+    <style name="carViewTheme" parent="Widget.MaterialComponents.CardView">
+
+        <item name="strokeWidth">@dimen/space_1dp</item>
+        <item name="strokeColor">@color/brown_200</item>
+        <item name="cardElevation">8dp</item>
+        <item name="android:layout_marginLeft">@dimen/space_5dp</item>
+        <item name="android:layout_marginRight">@dimen/space_5dp</item>
+        <item name="android:layout_marginTop">@dimen/space_3dp</item>
+        <item name="android:layout_marginBottom">@dimen/space_3dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/orange_500</item>
+        <item name="colorPrimaryDark">@color/orange_700</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>

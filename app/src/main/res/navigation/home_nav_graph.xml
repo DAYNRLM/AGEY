@@ -31,11 +31,11 @@
     <fragment
         android:id="@+id/assignVehicleFragment"
         android:name="com.nrlm.agey.ui.home.AssignVehicleFragment"
-        android:label="fragment_assign_vehicle"
+        android:label="Vehicle Detail"
         tools:layout="@layout/fragment_assign_vehicle">
         <action
-            android:id="@+id/action_assignVehicleFragment_to_homeTestFragment"
-            app:destination="@id/homeTestFragment" />
+            android:id="@+id/action_assignVehicleFragment_to_monthlyTrackingFragment"
+            app:destination="@id/monthlyTrackingFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
@@ -53,12 +53,46 @@
     <fragment
         android:id="@+id/changeLanguageFragment"
         android:name="com.nrlm.agey.ui.home.ChangeLanguageFragment"
-        android:label="fragment_change_language"
-        tools:layout="@layout/fragment_change_language" >
+        android:label="Change Language"
+        tools:layout="@layout/fragment_change_language">
         <action
             android:id="@+id/action_changeLanguageFragment_to_assignVehicleFragment"
             app:destination="@id/assignVehicleFragment"
             app:popUpTo="@id/assignVehicleFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/monthlyTrackingFragment"
+        android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragment"
+        android:label="Monthly Vehicle Tracking"
+        tools:layout="@layout/fragment_monthly_tracking">
+
+        <action
+            android:id="@+id/action_monthlyTrackingFragment_to_monthlyTrackingFragmentTwo2"
+            app:destination="@id/monthlyTrackingFragmentTwo2" />
+    </fragment>
+    <fragment
+        android:id="@+id/monthlyTrackingFragmentTwo2"
+        android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragmentTwo"
+        android:label="Monthly Vehicle Tracking"
+        tools:layout="@layout/fragment_monthly_tracking_two">
+        <action
+            android:id="@+id/action_monthlyTrackingFragmentTwo2_to_monthlyTrackingFragmentThree"
+            app:destination="@id/monthlyTrackingFragmentThree" />
+    </fragment>
+    <fragment
+        android:id="@+id/monthlyTrackingFragmentThree"
+        android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragmentThree"
+        android:label="Monthly Vehicle Tracking"
+        tools:layout="@layout/fragment_monthly_tracking_three">
+        <action
+            android:id="@+id/action_monthlyTrackingFragmentThree_to_assignVehicleFragment"
+            app:destination="@id/assignVehicleFragment"
+            app:popUpTo="@id/assignVehicleFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <dialog
+        android:id="@+id/logoutDialog"
+        android:name="com.nrlm.agey.ui.dialogFragment.LogoutDialog"
+        android:label="LogoutDialog" />
 </navigation>
