@@ -1,6 +1,7 @@
 package com.nrlm.agey.ui.login;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -15,6 +16,12 @@ import com.nrlm.agey.ui.mpin.MpinActivity;
 import com.nrlm.agey.utils.GetAllInstance;
 import com.nrlm.agey.utils.PermissionHelper;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,14 +30,19 @@ import retrofit2.Response;
 public class AuthActivity extends AppCompatActivity {
     GetAllInstance getAllInstance;
     boolean checkPermision;
+    PermissionHelper permissionHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
         getAllInstance = GetAllInstance.getInstance(AuthActivity.this);
+        permissionHelper =PermissionHelper.getInstance(AuthActivity.this);
 
-        checkPermision = getAllInstance.permissionHelper.checkAndRequestPermissions();
+       // checkPermision = getAllInstance.permissionHelper.checkAndRequestPermissions();
+        checkPermision = permissionHelper.checkAndRequestPermissions();
+
+
 
       /*  String imeiNumber =getAllInstance.appSharedPreferences.getImeiNumber();
         if(imeiNumber.equalsIgnoreCase("")||imeiNumber.isEmpty()){
@@ -43,7 +55,7 @@ public class AuthActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        getAllInstance.permissionHelper.requestPermissionResult(PermissionHelper.REQUEST_ID_MULTIPLE_PERMISSIONS, permissions, grantResults);
+        permissionHelper.requestPermissionResult(PermissionHelper.REQUEST_ID_MULTIPLE_PERMISSIONS, permissions, grantResults);
         checkPermision = true;
     }
 

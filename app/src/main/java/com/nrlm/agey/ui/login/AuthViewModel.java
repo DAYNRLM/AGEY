@@ -24,9 +24,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class AuthViewModel extends ViewModel {
     public AppRepository appRepository;
+
+    public LoginError error;
 
     public MutableLiveData<List<Example>> mutableListData;
 
@@ -93,7 +96,10 @@ public class AuthViewModel extends ViewModel {
 
     }
 
+
+
     public MutableLiveData<Boolean> showErrorDialog(LoginError loginError, Context context, LayoutInflater inflater) {
+        error=loginError;
         MutableLiveData<Boolean> resetData = new MutableLiveData<>();
         MaterialAlertDialogBuilder materialAlertDialogBuilder =
                 new MaterialAlertDialogBuilder(context);
@@ -116,11 +122,11 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void noInterNetConnection(Context context){
-        new  MaterialAlertDialogBuilder(context).setTitle("Network/Connection error").setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
-                .setMessage("Check your data connection and refresh")
-                .setPositiveButton("setting",(dialogInterface, i) -> {
+        new  MaterialAlertDialogBuilder(context).setTitle(context.getResources().getString(R.string.dialog_network_msg_title)).setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
+                .setMessage(context.getResources().getString(R.string.dialog_network_msg))
+                .setPositiveButton(context.getResources().getString(R.string.dialog_positive_btn),(dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                }).setNegativeButton("cancel",(dialogInterface, i) -> {
+                }).setNegativeButton(context.getResources().getString(R.string.dialog_cancel_btn),(dialogInterface, i) -> {
             dialogInterface.dismiss();
         }).show();
     }

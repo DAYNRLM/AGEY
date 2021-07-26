@@ -44,7 +44,7 @@
                         android:layout_weight="0.7"
                         android:fontFamily="@font/manrope_extra_bold"
                         android:padding="@dimen/space_2dp"
-                        android:text="Registration Number"
+                        android:text="@string/tv_reg_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_16sp" />
 
@@ -95,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Category of Vehicle"
+                            android:hint="@string/tv_vehicle_cat"
                             android:padding="3dp">
 
                             <AutoCompleteTextView
@@ -124,7 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Select Month"
+                                android:hint="@string/toast_error_select_month"
                                 android:padding="3dp">
 
                                 <AutoCompleteTextView
@@ -147,7 +147,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Select Year"
+                                android:hint="@string/toast_error_select_year"
                                 android:padding="3dp">
 
                                 <AutoCompleteTextView
@@ -184,7 +184,7 @@
                             android:background="@color/brown_200"
                             android:fontFamily="@font/montserrat_regular"
                             android:paddingLeft="@dimen/space_5dp"
-                            android:text="Kilometer reading"
+                            android:text="@string/tv_km_reading"
                             android:textColor="@color/black" />
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -192,13 +192,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Opening Kilometer"
+                            android:hint="@string/tv_km_opening"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_openingKm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="7"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -208,12 +209,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Closing Kilometer"
+                            android:hint="@string/tv_km_closing"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:text="@{testObj.clossingKm}"
                                 android:id="@+id/et_closingKm"
+                                android:maxLength="7"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular"
@@ -226,11 +228,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Total Kilometer Reading"
+                            android:hint="@string/tv_km_total"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:text="@{testObj.totall_km}"
                                 android:id="@+id/et_totlKm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -257,7 +258,7 @@
                             android:background="@color/brown_200"
                             android:fontFamily="@font/montserrat_regular"
                             android:paddingLeft="@dimen/space_5dp"
-                            android:text="Payment Detail"
+                            android:text="@string/tv_payment_detail"
                             android:textColor="@color/black" />
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -265,7 +266,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Amount Repaid in current month"
+                            android:hint="@string/tv_amount_repaid_current"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -281,7 +282,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Balance loan amount (CIF from CLF only)"
+                            android:hint="@string/tv_amount_balance_loan"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -298,7 +299,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="No of EMI overdue (if any)"
+                            android:hint="@string/tv_emi_overdue"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -314,7 +315,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Amount of overdue (if any)"
+                            android:hint="@string/tv_amount_overdue"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -330,7 +331,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Monthly net income from AGEY vehicle"
+                            android:hint="@string/tv_monthly_income"
                             android:padding="3dp">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -368,7 +369,7 @@
             android:fontFamily="@font/manrope_semi_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Next"
+            android:text="@string/btn_next"
             android:textSize="16sp"
             app:icon="@drawable/ic_baseline_arrow_next"
             app:iconGravity="textEnd"/>

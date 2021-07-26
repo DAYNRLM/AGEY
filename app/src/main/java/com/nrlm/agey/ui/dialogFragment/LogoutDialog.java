@@ -22,6 +22,7 @@ import com.nrlm.agey.repository.HomeRepository;
 import com.nrlm.agey.ui.BaseFragment;
 import com.nrlm.agey.ui.home.HomeActivity;
 import com.nrlm.agey.ui.login.AuthActivity;
+import com.nrlm.agey.utils.AppDateFactory;
 import com.nrlm.agey.utils.AppSharedPreferences;
 import com.nrlm.agey.utils.AppUtils;
 import com.nrlm.agey.utils.CustomProgressDialog;
@@ -33,6 +34,8 @@ public class LogoutDialog extends DialogFragment {
     HomeRepository homeRepository;
     AppUtils appUtils;
     AppSharedPreferences appSharedPreferences;
+    AppDateFactory appDateFactory;
+
 
     @NonNull
     @Override
@@ -40,21 +43,23 @@ public class LogoutDialog extends DialogFragment {
         customProgressDialog =CustomProgressDialog.newInstance(requireContext());
         homeRepository = HomeRepository.getInstance(getActivity().getApplication());
         appUtils=AppUtils.getInstance();
+        appDateFactory= AppDateFactory.getInstance();
         appSharedPreferences=AppSharedPreferences.getInstance(requireContext());
         alertDialog =   new MaterialAlertDialogBuilder(requireContext()).setIcon(R.drawable.ic_baseline_logout)
-                .setTitle("Confirm Sign Out").setMessage("You are signing out of your app on this device.")
+                .setTitle(getContext().getResources().getString(R.string.dialog_sign_out_title)).setMessage(getContext().getResources().getString(R.string.dialog_sign_out_msg))
                 .setCancelable(false)
-                .setPositiveButton("sign out", (dialogInterface, i) -> {
+                .setPositiveButton(getContext().getResources().getString(R.string.dialog_btn_signout), (dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                    ViewUtilsKt.tost(requireContext(),"Successfully SignOut");
+                    ViewUtilsKt.tost(requireContext(),getContext().getResources().getString(R.string.toast_success_sign_out));
                     homeRepository.deleteTables();
                     appSharedPreferences.removeDataAtLogout();
+                    appSharedPreferences.setLogOutTime(appDateFactory.getDateTime());
                     Intent intent = new Intent(getContext(), AuthActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     getContext().startActivity(intent);
                     getActivity().finish();
 
-                }).setNegativeButton("cancel", (dialogInterface, i) -> {
+                }).setNegativeButton(getContext().getResources().getString(R.string.dialog_cancel_btn), (dialogInterface, i) -> {
             dialogInterface.dismiss();
         }).show();
         setCancelable(false);

@@ -120,6 +120,31 @@ public class MainDataResponse {
         @Expose
         private String errorstatus;
 
+        @SerializedName("state_code")
+        @Expose
+        private String stateCode;
+
+        @SerializedName("state_short_name")
+        @Expose
+        private String stateShortName;
+
+
+        public String getStateCode() {
+            return stateCode;
+        }
+
+        public void setStateCode(String stateCode) {
+            this.stateCode = stateCode;
+        }
+
+        public String getStateShortName() {
+            return stateShortName;
+        }
+
+        public void setStateShortName(String stateShortName) {
+            this.stateShortName = stateShortName;
+        }
+
         public String getErrorstatus() {
             return errorstatus;
         }
@@ -290,17 +315,64 @@ public class MainDataResponse {
     }
 
     public class MonthlyReport {
-
-        @SerializedName("Errorstatus")
+        @SerializedName("last_month_detail")
         @Expose
-        private String errorstatus;
+        private LastMonthDetail lastMonthDetail;
 
-        public String getErrorstatus() {
-            return errorstatus;
+        public LastMonthDetail getLastMonthDetail() {
+            return lastMonthDetail;
+        }
+        public void setLastMonthDetail(LastMonthDetail lastMonthDetail) {
+            this.lastMonthDetail = lastMonthDetail;
         }
 
-        public void setErrorstatus(String errorstatus) {
-            this.errorstatus = errorstatus;
+    }
+
+    public class LastMonthDetail {
+
+        @SerializedName("year_of_tracking")
+        @Expose
+        private String yearOfTracking;
+        @SerializedName("month_of_tracking")
+        @Expose
+        private String monthOfTracking;
+        @SerializedName("opening_kilometer")
+        @Expose
+        private String openingKilometer;
+        @SerializedName("closing_killometer")
+        @Expose
+        private String closingKillometer;
+
+        public String getYearOfTracking() {
+            return yearOfTracking;
+        }
+
+        public void setYearOfTracking(String yearOfTracking) {
+            this.yearOfTracking = yearOfTracking;
+        }
+
+        public String getMonthOfTracking() {
+            return monthOfTracking;
+        }
+
+        public void setMonthOfTracking(String monthOfTracking) {
+            this.monthOfTracking = monthOfTracking;
+        }
+
+        public String getOpeningKilometer() {
+            return openingKilometer;
+        }
+
+        public void setOpeningKilometer(String openingKilometer) {
+            this.openingKilometer = openingKilometer;
+        }
+
+        public String getClosingKillometer() {
+            return closingKillometer;
+        }
+
+        public void setClosingKillometer(String closingKillometer) {
+            this.closingKillometer = closingKillometer;
         }
 
     }

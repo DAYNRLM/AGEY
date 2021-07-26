@@ -11,6 +11,7 @@ import com.nrlm.agey.database.dao.AssignVehicleDao;
 import com.nrlm.agey.database.dao.BloackDao;
 import com.nrlm.agey.database.dao.CategoryDao;
 import com.nrlm.agey.database.dao.LanguageDao;
+import com.nrlm.agey.database.dao.LastMonthDetailDao;
 import com.nrlm.agey.database.dao.ManfacturerDao;
 import com.nrlm.agey.database.dao.ManfacturerModelDao;
 import com.nrlm.agey.database.dao.MonthlyTrackingDao;
@@ -23,6 +24,7 @@ import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
 import com.nrlm.agey.database.entity.BlockEntity;
 import com.nrlm.agey.database.entity.CategoryEntity;
 import com.nrlm.agey.database.entity.LanguageEntity;
+import com.nrlm.agey.database.entity.LastMonthDetailEntity;
 import com.nrlm.agey.database.entity.ManfactureModelEntity;
 import com.nrlm.agey.database.entity.ManufactureEntity;
 import com.nrlm.agey.database.entity.MonthlyTrackingDataEntity;
@@ -46,8 +48,9 @@ import java.util.concurrent.Executors;
         ManufactureEntity.class,
         VehicleTypeEntity.class,
         AssessmentEntity.class,
-        NotOperationalEntity.class}
-        , version = 1, exportSchema = true)
+        NotOperationalEntity.class,
+        LastMonthDetailEntity.class}
+        , version = 2, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "ageydatabase.db";
@@ -69,6 +72,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract VehicleTypedao vehicleTypedao();
     public abstract NotOperationalDao notOperationalDao();
     public abstract AssessmentDao assessmentDao();
+    public abstract LastMonthDetailDao lastMonthDao();
 
 
     public static AppDatabase getDatabase(final Context context) {
@@ -76,7 +80,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, DATABASE_NAME)
+                            AppDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration()
                             .build();
                 }
             }

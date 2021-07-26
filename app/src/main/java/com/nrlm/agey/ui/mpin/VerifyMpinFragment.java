@@ -59,19 +59,22 @@ public class VerifyMpinFragment extends BaseFragment<MpinViewModel, FragmentVeri
         super.onViewCreated(view, savedInstanceState);
 
         List<UserDetailEntity> userdata=viewModel.getUserData();
-        binding.tvUsermsg.setText("Hi, AGEY User");
+        binding.tvUsermsg.setText(getCurrentContext().getResources().getString(R.string.tv_mpin_user_msg));
         String str ="";
         for(UserDetailEntity data:userdata){
-             str = "UserId: "+data.user_id;
-
-
+             str = getCurrentContext().getResources().getString(R.string.tv_mpin_userId)+data.user_id;
         }
         binding.tvUserDetail.setText(str);
+
+        binding.btnLogout.setOnClickListener(view1 -> {
+            navController.navigate(R.id.logoutDialog2);
+
+        });
 
         binding.btnVerify.setOnClickListener(view1 -> {
             String getMpin =binding.pinviewGetMpin.getText().toString();
             if(getMpin.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Mpin is not Empty...");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_mpin_not_empty));
             }else {
                 if(getMpin.equalsIgnoreCase(appSharedPreferences.getMpin())){
                     Intent intent =new Intent(getContext(), HomeActivity.class);
@@ -79,7 +82,7 @@ public class VerifyMpinFragment extends BaseFragment<MpinViewModel, FragmentVeri
                     startActivity(intent);
 
                 }else {
-                    ViewUtilsKt.tost(getCurrentContext(),"Mpin is Wrong please enter Right Mpin..");
+                    ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_mpin_wrong_msg));
                 }
             }
         });

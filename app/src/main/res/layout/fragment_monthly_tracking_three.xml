@@ -39,7 +39,7 @@
                         android:layout_weight="0.7"
                         android:fontFamily="@font/manrope_extra_bold"
                         android:padding="@dimen/space_2dp"
-                        android:text="Registration Number"
+                        android:text="@string/tv_reg_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_16sp" />
 
@@ -78,7 +78,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Upload Insurance Doc"
+                    android:text="@string/tv_upload_insurance_docs"
                     android:background="@color/brown_200"
                     android:gravity="center_horizontal" />
 
@@ -117,7 +117,7 @@
                                     android:fontFamily="@font/montserrat_regular"
                                     android:insetTop="0dp"
                                     android:insetBottom="0dp"
-                                    android:text="Take Photo"
+                                    android:text="@string/tv_take_photo"
                                     app:strokeColor="@color/orange_500"
                                     android:textColor="@color/black"/>
 
@@ -175,7 +175,7 @@
                    android:fontFamily="@font/manrope_semi_bold"
                    android:insetTop="0dp"
                    android:insetBottom="0dp"
-                   android:text="confirm"
+                   android:text="@string/btn_confirm"
                    app:icon="@drawable/ic_baseline_confirm"
                    app:iconGravity="end"/>
 
@@ -189,7 +189,7 @@
                    android:fontFamily="@font/manrope_semi_bold"
                    android:insetTop="0dp"
                    android:insetBottom="0dp"
-                   android:text="Edit"
+                   android:text="@string/btn_edit"
                    app:icon="@drawable/ic_baseline_edit"
                    app:iconGravity="end"/>
 
@@ -220,7 +220,7 @@
             android:fontFamily="@font/manrope_semi_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Save Data "
+            android:text="@string/btn_save_data"
             android:textSize="16sp"
             app:iconGravity="textEnd"
             app:icon="@drawable/ic_baseline_save_data"/>

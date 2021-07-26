@@ -19,4 +19,8 @@
             android:id="@+id/action_setMpinFragment2_to_verifyMpinFragment"
             app:destination="@id/verifyMpinFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/logoutDialog2"
+        android:name="com.nrlm.agey.ui.dialogFragment.LogoutDialog"
+        android:label="LogoutDialog" />
 </navigation>

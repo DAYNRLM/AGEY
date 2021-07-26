@@ -9,6 +9,8 @@ public class UserDetailEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
     public String user_id;
+    public String state_short_name;
+    public String state_code;
     public String app_version;
     public String server_date_time;
     public String language_id;

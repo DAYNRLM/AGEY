@@ -10,6 +10,7 @@ public class MonthlyTrackingDataEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    public String vehicleRegistrationNumber;
     public String blockCode;
     public String userID;
     public String cat_of_vehicle;

@@ -11,12 +11,25 @@
         android:label="fragment_auth"
         tools:layout="@layout/fragment_auth" >
         <action
-            android:id="@+id/action_authFragment_to_forgetPasswordFragment"
-            app:destination="@id/forgetPasswordFragment" />
+            android:id="@+id/action_authFragment_to_sendOtpFragment"
+            app:destination="@id/sendOtpFragment" />
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.nrlm.agey.ui.login.ForgetPasswordFragment"
         android:label="fragment_forget_password"
-        tools:layout="@layout/fragment_forget_password" />
+        tools:layout="@layout/fragment_forget_password" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendOtpFragment"
+        android:name="com.nrlm.agey.ui.login.SendOtpFragment"
+        android:label="fragment_send_otp"
+        tools:layout="@layout/fragment_send_otp" >
+        <action
+            android:id="@+id/action_sendOtpFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
 </navigation>

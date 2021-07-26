@@ -46,9 +46,10 @@
                     android:fontFamily="@font/manrope_regular" />
 
                 <TextView
+                    android:id="@+id/btn_logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
+                    android:text="@string/tv_logout"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/orange_700"
                     android:gravity="center_horizontal" />
@@ -92,7 +93,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:text="Verify Mpin"
+            android:text="@string/btn_verify_mpin"
             android:textSize="16sp"
             android:insetTop="0dp"
             android:insetBottom="0dp"

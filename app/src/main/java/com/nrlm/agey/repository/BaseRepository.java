@@ -1,5 +1,6 @@
 package com.nrlm.agey.repository;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -9,6 +10,7 @@ import com.nrlm.agey.database.dao.AssignVehicleDao;
 import com.nrlm.agey.database.dao.BloackDao;
 import com.nrlm.agey.database.dao.CategoryDao;
 import com.nrlm.agey.database.dao.LanguageDao;
+import com.nrlm.agey.database.dao.LastMonthDetailDao;
 import com.nrlm.agey.database.dao.ManfacturerDao;
 import com.nrlm.agey.database.dao.ManfacturerModelDao;
 import com.nrlm.agey.database.dao.MonthlyTrackingDao;
@@ -17,14 +19,14 @@ import com.nrlm.agey.database.dao.UserDetailDao;
 import com.nrlm.agey.database.dao.VehicleTypedao;
 import com.nrlm.agey.database.dao.YesNoDao;
 import com.nrlm.agey.network.vollyCall.VolleyService;
+import com.nrlm.agey.utils.AppSharedPreferences;
 import com.nrlm.agey.utils.AppUtils;
+import com.nrlm.agey.utils.GetAllInstance;
 
 public abstract class BaseRepository {
 
     public Application application;
-
     public AppDatabase appDatabase;
-
     public UserDetailDao userDetailDao;
     public BloackDao bloackDao;
     public AssignVehicleDao assignVehicleDao;
@@ -36,7 +38,11 @@ public abstract class BaseRepository {
     public YesNoDao yesNoDao;
     public MonthlyTrackingDao monthlyTrackingDao;
     public NotOperationalDao notOperationalDao;
+    public LastMonthDetailDao lastMonthDetailDao;
     public AssessmentDao assessmentDao;
+    public AppSharedPreferences appSharedPreferences;
+    public GetAllInstance getAllInstance;
+   // public  VolleyService volleyService;
 
 
     public AppUtils appUtils;
@@ -60,8 +66,13 @@ public abstract class BaseRepository {
         monthlyTrackingDao = appDatabase.monthlyTrackingDao();
         notOperationalDao=appDatabase.notOperationalDao();
         assessmentDao =appDatabase.assessmentDao();
+        lastMonthDetailDao =appDatabase.lastMonthDao();
 
         appUtils =AppUtils.getInstance();
+        appSharedPreferences =AppSharedPreferences.getInstance(application.getApplicationContext());
+
+        getAllInstance =GetAllInstance.getInstance(application.getApplicationContext());
+       // volleyService =VolleyService.getInstance(application.getApplicationContext());
 
 
     }
@@ -76,6 +87,7 @@ public abstract class BaseRepository {
             manfacturerDao.deleteTable();
             manfacturerModelDao.deleteTable();
             vehicleTypedao.deleteTable();
+            lastMonthDetailDao.deleteTable();
         });
 
 

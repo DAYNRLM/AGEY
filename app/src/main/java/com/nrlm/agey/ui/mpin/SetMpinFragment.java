@@ -66,9 +66,9 @@ public class SetMpinFragment extends BaseFragment<MpinViewModel, FragmentSetMpin
             String verifyMpin = binding.pinviewSecond.getText().toString();
 
             if(mpin.isEmpty()){
-                ViewUtilsKt.tost(getContext(),"set Mpin First");
+                ViewUtilsKt.tost(getContext(),getCurrentContext().getResources().getString(R.string.toast_enter_mpin));
             }else if(verifyMpin.isEmpty()){
-                ViewUtilsKt.tost(getContext(),"Confirm Mpin First");
+                ViewUtilsKt.tost(getContext(),getCurrentContext().getResources().getString(R.string.toast_enter_confirm_mpin));
             }else {
                 if(mpin.equalsIgnoreCase(verifyMpin)){
                     appSharedPreferences.setMpin(verifyMpin);
@@ -76,7 +76,7 @@ public class SetMpinFragment extends BaseFragment<MpinViewModel, FragmentSetMpin
                     navController.navigate(action);
 
                 }else {
-                    ViewUtilsKt.tost(getContext(),"Confirm Mpin and set Mpin is not Matched");
+                    ViewUtilsKt.tost(getContext(),getCurrentContext().getResources().getString(R.string.toast_mpin_not_matched));
                 }
             }
 

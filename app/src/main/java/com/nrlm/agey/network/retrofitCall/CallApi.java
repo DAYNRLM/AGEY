@@ -66,7 +66,11 @@ public interface CallApi {
     Call<MainDataResponse> getAgeyAuthResponse(@Body JSONObject jsonObject);
 
 
-
+   /* @Headers({
+            "Accept: application/json",
+            "User-Agent: Your-App-Name",
+            "Cache-Control: max-age=640000"
+    })*/
 
     /*@GET("/users/{user}")
     suspend fun getUser(@Path("user") userId: String): User*/

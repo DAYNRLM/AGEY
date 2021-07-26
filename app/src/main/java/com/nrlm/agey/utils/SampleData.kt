@@ -8,5 +8,7 @@ import androidx.lifecycle.MutableLiveData
         var defaultKilometer = MutableLiveData<Long>(20L)
         var openingKm = MutableLiveData<String>("")
 
+        var notificationCount  = MutableLiveData<Int>(0)
+
     }
 }

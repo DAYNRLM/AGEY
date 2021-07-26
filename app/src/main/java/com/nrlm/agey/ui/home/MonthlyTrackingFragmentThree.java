@@ -13,18 +13,28 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.JsonReader;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 
 import com.android.volley.VolleyError;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.gson.JsonObject;
+import com.nrlm.agey.HomeNavGraphDirections;
+import com.nrlm.agey.R;
 import com.nrlm.agey.databinding.FragmentMonthlyTrackingThreeBinding;
 import com.nrlm.agey.databinding.FragmentMonthlyTrackingTwoBinding;
 import com.nrlm.agey.model.LoginError;
@@ -34,7 +44,10 @@ import com.nrlm.agey.network.vollyCall.VolleyResult;
 import com.nrlm.agey.repository.HomeRepository;
 import com.nrlm.agey.ui.BaseFragment;
 import com.nrlm.agey.ui.login.AuthFragment;
+import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.NetworkUtils;
+import com.nrlm.agey.utils.PrefrenceManager;
+import com.nrlm.agey.utils.SampleData;
 import com.nrlm.agey.utils.ViewUtilsKt;
 
 import org.json.JSONArray;
@@ -42,6 +55,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import static androidx.core.content.ContextCompat.checkSelfPermission;
 
@@ -53,6 +74,11 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
     private byte[] imageByteArray;
 
     LayoutInflater layoutInflater;
+
+    MenuItem menuItem;
+    TextView badgeTv;
+
+
 
     @Override
     public Class<HomeViewModel> getViewModel() {
@@ -89,14 +115,33 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setHasOptionsMenu(true);
+        viewModel.getTrackingData();
+
         testObject =TestObject.getInstance();
         binding.tvRegNumber.setText(appSharedPreferences.getVehicleRegNum());
 
         Observer<Boolean> resetObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable final Boolean newName) {
-                NavDirections action =MonthlyTrackingFragmentThreeDirections.actionMonthlyTrackingFragmentThreeToAssignVehicleFragment();
-                navController.navigate(action);
+                LoginError getError= viewModel.error;
+                if(getError.syncId.equalsIgnoreCase(PrefrenceManager.KEY_SAVE_DATA_LOCAL_DB)){
+                   // ViewUtilsKt.tost(getContext(),"inside for data save local");
+                    new MaterialAlertDialogBuilder(getContext()).setTitle(getCurrentContext().getResources().getString(R.string.dialog_network_msg_title)).setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
+                            .setMessage(getCurrentContext().getResources().getString(R.string.dialog_save_local_memory))
+                            .setPositiveButton("Ok",(dialogInterface, i) -> {
+                                dialogInterface.dismiss();
+                                viewModel.saveTrackingDataInLocalDb(testObject);
+                                //set dealy for show progressdialog
+                                NavDirections action =MonthlyTrackingFragmentThreeDirections.actionMonthlyTrackingFragmentThreeToAssignVehicleFragment();
+                                navController.navigate(action);
+                            }).show();
+
+
+                }else {
+                    NavDirections action =MonthlyTrackingFragmentThreeDirections.actionMonthlyTrackingFragmentThreeToAssignVehicleFragment();
+                    navController.navigate(action);
+                }
 
             }
         };
@@ -104,16 +149,44 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
         binding.btnSaveData.setOnClickListener(view1 -> {
 
             if(NetworkUtils.isInternetOn(getContext())){
-                customProgressDialog.showProgress("loading", false);
+                customProgressDialog.showProgress(getCurrentContext().getResources().getString(R.string.dialog_loading), false);
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.accumulate("user_id",appSharedPreferences.getValidUserId());
-                    jsonObject.accumulate("state_short_name","HR");
-                    jsonObject.accumulate("block_code","234567");
+                    jsonObject.accumulate("state_short_name",appSharedPreferences.getStateShortName());
+                    jsonObject.accumulate("block_code",appSharedPreferences.getBlockCode());
                     jsonObject.accumulate("vehicle_data",getVehicleArray());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
+                JSONObject encryptedObject =new JSONObject();
+                try {
+                    Cryptography cryptography = new Cryptography();
+
+                    encryptedObject.accumulate("data",cryptography.encrypt(jsonObject.toString()));
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                appUtils.showLog("*****encrypted objectttt****"+encryptedObject.toString(), MonthlyTrackingFragmentThree.class);
+
+
                 mResultCallBack =new VolleyResult() {
                     @Override
                     public void notifySuccess(String requestType, JSONObject response) {
@@ -124,14 +197,14 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                                 String data_Sync = response.getString("data_Sync");
                                 if(data_Sync.equalsIgnoreCase("Success")){
                                     loginError.imageId="1";
-                                    loginError.errorMessage="Data Saved Successfully";
-                                    loginError.errorDetail="Data saved for "+(testObject.tracking_month+1)+"/"+testObject.tracking_year+" is successfully";
+                                    loginError.errorMessage=getCurrentContext().getResources().getString(R.string.dialog_adapter_title);
+                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_msg_save)+(testObject.tracking_month+1)+"/"+testObject.tracking_year+getCurrentContext().getResources().getString(R.string.dialog_msg_save_continue);
                                     viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                             .observe(getViewLifecycleOwner(), resetObserver);
                                 }else {
                                     loginError.imageId="0";
-                                    loginError.errorMessage="Data Not Saved";
-                                    loginError.errorDetail="Data not save due to duplicate entry for "+(testObject.tracking_month+1)+"/"+testObject.tracking_year;
+                                    loginError.errorMessage=getCurrentContext().getResources().getString(R.string.dialog_not_save);
+                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_duplicate_entry)+(testObject.tracking_month+1)+"/"+testObject.tracking_year;
                                     viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                             .observe(getViewLifecycleOwner(), resetObserver);
 
@@ -149,7 +222,6 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
 
                         }
 
-
                     }
 
                     @Override
@@ -157,36 +229,45 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                         customProgressDialog.hideProgress();
                         LoginError loginError = new LoginError();
                         loginError.imageId="0";
-                        loginError.errorMessage="Server Error!!";
-                        loginError.errorDetail="Check your internet connectivity/Please try after some time";
+                        loginError.syncId= PrefrenceManager.KEY_SAVE_DATA_LOCAL_DB;
+                        loginError.errorMessage=getCurrentContext().getResources().getString(R.string.error_server_error);
+                        loginError.errorDetail= getCurrentContext().getResources().getString(R.string.error_server_msg);
                         viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                 .observe(getViewLifecycleOwner(), resetObserver);
 
                     }
                 };
-                volleyService.postDataVolley("syncData","https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data",jsonObject,mResultCallBack);
+                //volleyService.postDataVolley("syncData","https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data",jsonObject,mResultCallBack);
+                volleyService.postDataVolley("syncData","https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data",encryptedObject,mResultCallBack);
 
                 //{"data_Sync":"Success"}
             }else {
-                appUtils.showLog("*****NetWork is OFFF****", AuthFragment.class);
+                appUtils.showLog("*****NetWork is OFFF****", MonthlyTrackingFragmentThree.class);
                 viewModel.noInterNetConnection(getCurrentContext());
             }
-
 
         });
         binding.btnEdit.setOnClickListener(view1 -> {
             ViewUtilsKt.tost(getCurrentContext(),"Currently not working..");
+           /* MutableLiveData getKm =new MutableLiveData<Integer>(100);
+            SampleData.Companion.setNotificationCount(getKm);
+            viewModel.updateNotification(getKm);
+
+            NavDirections action =MonthlyTrackingFragmentThreeDirections.actionMonthlyTrackingFragmentThreeToAssignVehicleFragment();
+            navController.navigate(action);*/
+
+
         });
 
         binding.btnConfirm.setOnClickListener(view1 -> {
-            String encodedimage =  Base64.encodeToString(imageByteArray, Base64.DEFAULT);
+           /* String encodedimage =  Base64.encodeToString(imageByteArray, Base64.DEFAULT);
             JSONObject imag = new JSONObject();
             try {
                 imag.accumulate("image",encodedimage);
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
-            appUtils.showLog("image is :>>>>:   "+imag.toString(),MonthlyTrackingFragmentThree.class);
+            }*/
+          //  appUtils.showLog("image is :>>>>:   "+imag.toString(),MonthlyTrackingFragmentThree.class);
             ViewUtilsKt.tost(getCurrentContext(),"Currently not working..");
         });
 
@@ -210,6 +291,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
         });
     }
 
+
     private JSONArray getVehicleArray() {
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
@@ -222,7 +304,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
             jsonObject.accumulate("total_no_of_village_run",testObject.numberOfVillage);
             jsonObject.accumulate("track_year",testObject.tracking_year);
             jsonObject.accumulate("track_month",testObject.tracking_month);
-            jsonObject.accumulate("track_date_by_mobile",testObject.cat_of_vehicle);
+            jsonObject.accumulate("track_date_by_mobile",getAllInstance.dateFactroy.getDateTime());
             jsonObject.accumulate("opening_kilometer",testObject.openingKm);
             jsonObject.accumulate("clossing_kilometer",testObject.clossingKm);
             jsonObject.accumulate("amount_repaid_in_this_month",testObject.amountRepaidInCurrentMonth);
@@ -243,6 +325,38 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
             e.printStackTrace();
         }
         return jsonArray;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        appUtils.showLog("inside fragment menu ",AssignVehicleFragment.class);
+
+        menuItem = menu.findItem(R.id.item_about_app);
+        SampleData.Companion.getNotificationCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer==0){
+                    appUtils.showLog("inside ifl"+integer,HomeActivity.class);
+                    menuItem.setActionView(null);
+                }else {
+                    appUtils.showLog("inside else"+integer,HomeActivity.class);
+                    menuItem.setActionView(R.layout.notification_badge);
+                    View view = menuItem.getActionView();
+                    badgeTv= view.findViewById(R.id.tv_badgeCounter);
+                    badgeTv.setText(""+integer);
+
+                    FrameLayout frameLayout = view.findViewById(R.id.top_layout);
+
+                    frameLayout.setOnClickListener(view1 -> {
+                        NavDirections action = HomeNavGraphDirections.actionGlobalAboutUsFragment();
+                        navController.navigate(action);
+
+                    });
+                }
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -290,4 +404,5 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
         }
 
     }
+
 }

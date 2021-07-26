@@ -29,7 +29,7 @@
                     <TextView
                         android:id="@+id/tv_click"
                         style="@style/TitleTextViewTheme"
-                        android:text="Select Location" />
+                        android:text="@string/tv_location_title" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/ttl_assignVehicle"
@@ -39,7 +39,7 @@
                         android:layout_margin="5dp"
                         android:padding="3dp"
                         android:fontFamily="@font/montserrat_regular"
-                        android:hint="Vehicle Regd No: ">
+                        android:hint="@string/tv_vehicle_reg_no">
 
                         <AutoCompleteTextView
 
@@ -96,7 +96,7 @@
 
                         <TextView
                             style="@style/TitleTextViewTheme"
-                            android:text="Vehicle Detail" />
+                            android:text="@string/tv_vehicle_detail" />
 
 
 
@@ -115,7 +115,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Vehicle owned by:">
+                                android:hint="@string/tv_vehicle_owned_by">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:text="@{assignVehicleModel.vehicleOwnedBy}"
                                     android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Category of Vehicle:">
+                                android:hint="@string/tv_vehicle_cat">
                                 <com.google.android.material.textfield.TextInputEditText
                                     app:changedText="@{assignVehicleModel.vehicleCategory}"
                                     android:layout_width="match_parent"
@@ -149,7 +149,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Vehicle Type:">
+                                android:hint="@string/tv_vehicle_type">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/et_vehicleType"
                                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint=" Manufacturer of vehicle">
+                                android:hint="@string/tv_vehicle_manufacturer">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/et_manufactureOfVehicle"
                                     android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_3dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Vehicle Model:">
+                                android:hint="@string/tv_vehicle_model">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/et_vehicleModel"
                                     android:layout_width="match_parent"
@@ -218,7 +218,7 @@
 
                         <TextView
                             style="@style/TitleTextViewTheme"
-                            android:text="Payment Details" />
+                            android:text="@string/tv_payment_detail" />
 
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -230,7 +230,7 @@
                             android:layout_marginTop="@dimen/space_1dp"
                             android:layout_marginBottom="@dimen/space_1dp"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Total cost of vehicle">
+                            android:hint="@string/tv_vehicle_cost">
                             <com.google.android.material.textfield.TextInputEditText
                                 app:priceText="@{assignVehicleModel.vehicleTotalCost}"
                                 android:layout_width="match_parent"
@@ -247,7 +247,7 @@
                             android:layout_marginTop="@dimen/space_1dp"
                             android:layout_marginBottom="@dimen/space_1dp"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Loan amount for vehicle">
+                            android:hint="@string/tv_loan_amount">
                             <com.google.android.material.textfield.TextInputEditText
                                 app:priceText="@{assignVehicleModel.vehicleLoanAmountFromClf}"
                                 android:layout_width="match_parent"
@@ -271,7 +271,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="No. of EMIs"
+                                android:hint="@string/tv_no_emi"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:text="@{assignVehicleModel.totalNumberOfEmi}"
@@ -289,7 +289,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Value per EMI"
+                                android:hint="@string/tv_value_emi"
                                 android:layout_weight="1">
                                 <com.google.android.material.textfield.TextInputEditText
                                     app:priceText="@{assignVehicleModel.valuePerEmi}"
@@ -335,7 +335,7 @@
                                 android:layout_marginTop="@dimen/space_1dp"
                                 android:layout_marginBottom="@dimen/space_1dp"
                                 android:fontFamily="@font/montserrat_regular"
-                                android:hint="Paid EMIs"
+                                android:hint="@string/tv_paid_emi"
                                 android:layout_weight="1.3">
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:text="@{assignVehicleModel.numberOfEmiPaid}"
@@ -379,7 +379,7 @@
             android:layout_marginLeft="@dimen/space_10dp"
             android:layout_marginRight="@dimen/space_10dp"
             android:layout_marginBottom="@dimen/space_10dp"
-            android:text="Monthly Tracking"
+            android:text="@string/btn_monthly_tracking"
             android:textSize="16sp"
             android:insetTop="0dp"
             android:insetBottom="0dp"

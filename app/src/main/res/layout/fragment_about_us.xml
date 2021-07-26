@@ -1,19 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    tools:context=".ui.home.AboutUsFragment"
-    android:gravity="center">
+    tools:context=".ui.home.AboutUsFragment">
 
-    <TextView
-        android:background="@color/brown_200"
+    <data>
+
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="About us Details of application"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:gravity="center_horizontal"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_showMsgToplayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/top_card_view"
+                android:layout_centerInParent="true"
+                android:layout_margin="@dimen/space_10dp"
+                style="@style/carViewTheme">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_aboutus_error_msg"
+                        android:textColor="@color/red_500"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/manrope_extra_bold"
+                        android:gravity="center_horizontal" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </RelativeLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_unsyncDaata"
+            style="@style/carViewTheme">
+
+            <LinearLayout
+                android:layout_margin="@dimen/space_5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_click"
+                    style="@style/TitleTextViewTheme"
+                    android:text="@string/tv_aboutus_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_unsyncData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_5dp"
+                    android:padding="2dp"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </LinearLayout>
+</layout>

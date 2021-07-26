@@ -14,20 +14,28 @@ import com.nrlm.agey.database.entity.AssessmentEntity;
 import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
 import com.nrlm.agey.database.entity.CategoryEntity;
 import com.nrlm.agey.database.entity.LanguageEntity;
+import com.nrlm.agey.database.entity.MonthlyTrackingDataEntity;
 import com.nrlm.agey.database.entity.NotOperationalEntity;
+import com.nrlm.agey.database.entity.UserDetailEntity;
 import com.nrlm.agey.database.entity.YesNoEntity;
 import com.nrlm.agey.databinding.DialogErrorMessageBinding;
 import com.nrlm.agey.model.LoginError;
+import com.nrlm.agey.model.TestObject;
 import com.nrlm.agey.repository.AppRepository;
 import com.nrlm.agey.repository.HomeRepository;
 import com.nrlm.agey.utils.SampleData;
 import com.nrlm.agey.utils.ViewUtilsKt;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel  extends ViewModel {
     public HomeRepository homeRepository;
+    public LoginError error;
+    public MutableLiveData<Integer> integerMutableLiveData=new MutableLiveData<Integer>(0);
     public HomeViewModel(HomeRepository homeRepository) {
         this.homeRepository = homeRepository;
     }
@@ -45,6 +53,7 @@ public class HomeViewModel  extends ViewModel {
         AssignVehicleDataEntity assignVehicleDataEntity =homeRepository.getVehicleData(vehicleNumber);
         return assignVehicleDataEntity;
     }
+
 
 
     public String vechileType(String vechileType){
@@ -131,16 +140,17 @@ public class HomeViewModel  extends ViewModel {
 
 
     public void noInterNetConnection(Context context){
-        new MaterialAlertDialogBuilder(context).setTitle("Network/Connection error").setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
-                .setMessage("Check your data connection and refresh")
-                .setPositiveButton("setting",(dialogInterface, i) -> {
+        new MaterialAlertDialogBuilder(context).setTitle(context.getResources().getString(R.string.dialog_network_msg_title)).setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
+                .setMessage(context.getResources().getString(R.string.dialog_network_msg))
+                .setPositiveButton(context.getResources().getString(R.string.dialog_positive_btn),(dialogInterface, i) -> {
                     dialogInterface.dismiss();
-                }).setNegativeButton("cancel",(dialogInterface, i) -> {
+                }).setNegativeButton(context.getResources().getString(R.string.dialog_cancel_btn),(dialogInterface, i) -> {
             dialogInterface.dismiss();
         }).show();
     }
 
     public MutableLiveData<Boolean> showErrorDialog(LoginError loginError, Context context, LayoutInflater inflater) {
+        error=loginError;
         MutableLiveData<Boolean> resetData = new MutableLiveData<>();
         MaterialAlertDialogBuilder materialAlertDialogBuilder =
                 new MaterialAlertDialogBuilder(context);
@@ -161,5 +171,61 @@ public class HomeViewModel  extends ViewModel {
         });
         return resetData;
     }
+
+    public void saveTrackingDataInLocalDb(TestObject testObject){
+        homeRepository.inseartTrackingData(testObject);
+    }
+
+    public List<MonthlyTrackingDataEntity> getTrackingData(){
+
+        List<MonthlyTrackingDataEntity> dataList =homeRepository.getTrackingData();
+
+        if(!dataList.isEmpty()){
+            MutableLiveData getKm =new MutableLiveData<Integer>(dataList.size()+1);
+            SampleData.Companion.setNotificationCount(getKm);
+        }
+        return  dataList;
+    }
+
+    public MutableLiveData<Integer> updateNotification(MutableLiveData<Integer> value){
+        integerMutableLiveData =value;
+        return integerMutableLiveData;
+
+    }
+
+    public JSONObject getSyncObject(int primaryId){
+        return homeRepository.getJsonObject(primaryId);
+
+    }
+
+    public void deleteTrackingObject(int pid){
+        homeRepository.deleteTrackingData(pid);
+    }
+
+    public UserDetailEntity getUserDetailData(){
+        UserDetailEntity userDetailEntity = null;
+        for(int i=0;i<homeRepository.getUserdetail().size();i++){
+            userDetailEntity =homeRepository.getUserdetail().get(0);
+        }
+        return userDetailEntity;
+
+    }
+
+    public String getLstMonthClosingKm(String regNumber){
+
+        String closingKm ="";
+
+        for(int i=0;i<homeRepository.getLastMonthData(regNumber).size();i++){
+            closingKm = homeRepository.getLastMonthData(regNumber).get(i).closing_killometer;
+        }
+        return closingKm;
+    }
+
+
+   /* public  MutableLiveData<String> getNetworkApiStatus(JSONObject jsonObject){
+        return  homeRepository.callVollyNetworkApi(jsonObject);
+    }*/
+
+
 
 }

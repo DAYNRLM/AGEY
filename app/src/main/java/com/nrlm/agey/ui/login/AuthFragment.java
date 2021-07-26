@@ -44,6 +44,7 @@ import com.nrlm.agey.repository.BaseAllRepository;
 import com.nrlm.agey.ui.BaseFragment;
 import com.nrlm.agey.ui.home.HomeViewModelFactory;
 import com.nrlm.agey.ui.mpin.MpinActivity;
+import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.CustomProgressDialog;
 import com.nrlm.agey.utils.NetworkUtils;
 import com.nrlm.agey.utils.ViewUtilsKt;
@@ -54,7 +55,15 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -112,6 +121,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
             }
         };
 
+        //Invalid date!!!
+
         binding.btnLogin.setOnClickListener(view1 -> {
             userId = binding.etUserId.getText().toString();
             password = binding.etPassword.getText().toString();
@@ -122,9 +133,9 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
             if (NetworkUtils.isInternetOn(getCurrentContext())) {
                 if (userId.isEmpty() || password.isEmpty()) {
-                    ViewUtilsKt.tost(getContext(), "Enter user name and password");
+                    ViewUtilsKt.tost(getContext(), getCurrentContext().getResources().getString(R.string.toast_enter_userName_password));
                 } else {
-                    customProgressDialog.showProgress("loading", false);
+                    customProgressDialog.showProgress(getCurrentContext().getResources().getString(R.string.dialog_loading), false);
                     try {
                         LoginRequest loginRequest = new LoginRequest();
                         loginRequest.userId = userId.toUpperCase();
@@ -133,8 +144,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                         loginRequest.appVersion = BuildConfig.VERSION_NAME;
                         loginRequest.todayDate = getAllInstance.dateFactroy.getTodayDate();
                         loginRequest.locCoordinate = "00.00";
-                        loginRequest.appLoginTime = appUtils.getRandomOtp();// change on every request
-                        loginRequest.logoutTime = "";
+                        loginRequest.appLoginTime = appUtils.getRandomOtp();
+                        loginRequest.logoutTime = appSharedPreferences.getLogOutTime();
                         loginRequest.androidVersion = "0";
                         loginRequest.androidApiVersion = "0";
                         loginRequest.appRequest="";
@@ -142,28 +153,60 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
 
                         JSONObject logInObject = new JSONObject(loginRequest.javaToJson());
-                       /* logInObject.accumulate("user_id",userId.toUpperCase());
-                        logInObject.accumulate("user_password",appUtils.getSha256(password));
-                        logInObject.accumulate("IMEI",imei);
-                        logInObject.accumulate("device_name",deviceUtils.getDeviceInfo());
-                        logInObject.accumulate("app_version",BuildConfig.VERSION_NAME);
-                        logInObject.accumulate("date",getAllInstance.dateFactroy.getTodayDate());
-                        logInObject.accumulate("location_coordinate","0.0");
-                        logInObject.accumulate("app_login_time","0");
-                        logInObject.accumulate("app_request","0");
-                        logInObject.accumulate("logout_time","0");
-                        logInObject.accumulate("android_version","0");
-                        logInObject.accumulate("android_api_version","0");*/
-                        appUtils.showLog("JSON OBJECT::" + logInObject.toString(), AuthFragment.class);
+
+
+
+                        JSONObject encryptedObject =new JSONObject();
+                        try {
+                            Cryptography cryptography = new Cryptography();
+
+                            encryptedObject.accumulate("data",cryptography.encrypt(logInObject.toString()));
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchPaddingException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (InvalidKeyException e) {
+                            e.printStackTrace();
+                        } catch (InvalidAlgorithmParameterException e) {
+                            e.printStackTrace();
+                        } catch (IllegalBlockSizeException e) {
+                            e.printStackTrace();
+                        } catch (BadPaddingException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+
+                        appUtils.showLog("JSON encrypted::" + encryptedObject.toString(), AuthFragment.class);
 
                         mResultCallBack = new VolleyResult() {
                             @Override
                             public void notifySuccess(String requestType, JSONObject response) {
                                 customProgressDialog.hideProgress();
                                 LoginError loginError = new LoginError();
-                                appUtils.showLog("volly response::" + response.toString(), AuthFragment.class);
+                                appUtils.showLog(":::::volly response::" + response.toString(), AuthFragment.class);
+                                //{"data":"i+ZwCwPQ1HOGK6Ub8K5JZTs18ADdBC+6lgfaY0wvjg+5MZbedSs+vqMk9ECjPjtXz3ChTcydJ+Q5\r\na7PRC4G2VQLSv4lA9kOAX4RCueNyW3hGI45skrmP1lmAIv7iliwA"}
+                                //{"data":{"user_data":{"Errorstatus":"Invalid UserID !!!"}},"message":"success","status":1}
+
                                 try {
-                                    JSONObject jsonObject = new JSONObject(response.toString());
+                                    JSONObject jsonObject;
+                                    String convertedData = "";
+
+                                    if(response.has("data")){
+                                        String getData =response.getString("data");
+                                        Cryptography cryptography = new Cryptography();
+                                        convertedData =cryptography.decrypt(getData);
+                                        appUtils.showLog("******decrypt response******"+cryptography.decrypt(getData), AuthFragment.class);
+
+                                        jsonObject  = new JSONObject( cryptography.decrypt(getData));
+
+                                    }else {
+                                        jsonObject  = new JSONObject(response.toString());
+                                    }
+
+
                                     JSONObject dataObject = jsonObject.getJSONObject("data");
                                     JSONObject userObject = dataObject.getJSONObject("user_data");
                                     if (userObject.has("Errorstatus")) {
@@ -172,30 +215,29 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                         if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
                                             loginError.imageId="0";
                                             loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = "Please check your UserId & Password";
+                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
                                             viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                     .observe(getViewLifecycleOwner(), resetObserver);
                                         } else if (errorMessage.equalsIgnoreCase("Invalid Password!!!")) {
                                             loginError.imageId="0";
                                             loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = "Please check your UserId & Password";
+                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);;
                                             viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                     .observe(getViewLifecycleOwner(), resetObserver);
 
                                         } else if (errorMessage.equalsIgnoreCase("Invalid Login !!!")) {
                                             loginError.imageId="0";
                                             loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = "Please check your UserId & Password";
+                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
                                             viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                     .observe(getViewLifecycleOwner(), resetObserver);
-
-
                                         } else {
 
                                         }
 
                                     } else {
-                                        MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
+                                       // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
+                                        MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
                                         viewModel.insertLoginData(monthlyTrackingDataEntity);
                                         appSharedPreferences.setValidUserId(userId);
                                         appSharedPreferences.setLoginStatus("done");
@@ -208,6 +250,20 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                                 } catch (JSONException e) {
                                     e.printStackTrace();
+                                } catch (NoSuchPaddingException e) {
+                                    e.printStackTrace();
+                                } catch (NoSuchAlgorithmException e) {
+                                    e.printStackTrace();
+                                } catch (InvalidKeyException e) {
+                                    e.printStackTrace();
+                                } catch (InvalidAlgorithmParameterException e) {
+                                    e.printStackTrace();
+                                } catch (IllegalBlockSizeException e) {
+                                    e.printStackTrace();
+                                } catch (BadPaddingException e) {
+                                    e.printStackTrace();
+                                } catch (UnsupportedEncodingException e) {
+                                    e.printStackTrace();
                                 }
 
                             }
@@ -218,14 +274,15 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                 appUtils.showLog("volly rerror::" + error.toString(), AuthFragment.class);
                                 LoginError loginError = new LoginError();
                                 loginError.imageId="0";
-                                loginError.errorDetail="Server Error!!";
-                                loginError.errorDetail="Check your internet connectivity/Please try after some time";
+                                loginError.errorMessage=getCurrentContext().getResources().getString(R.string.error_server_error);
+                                loginError.errorDetail=getCurrentContext().getResources().getString(R.string.error_server_msg);
                                 viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                         .observe(getViewLifecycleOwner(), resetObserver);
 
                             }
                         };
-                        volleyService.postDataVolley("login", "https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login", logInObject, mResultCallBack);
+                        volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login", encryptedObject, mResultCallBack);
+                        //volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservice/services/agey/login", encryptedObject, mResultCallBack);
 
 
                     } catch (Exception e) {
@@ -240,7 +297,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
         });
 
         binding.tvForgetPassword.setOnClickListener(view1 -> {
-            NavDirections action = AuthFragmentDirections.actionAuthFragmentToForgetPasswordFragment();
+            NavDirections action = AuthFragmentDirections.actionAuthFragmentToSendOtpFragment();
             navController.navigate(action);
         });
     }
@@ -261,7 +318,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
             @Override
             public void onChanged(String s) {
                 customProgressDialog.hideProgress();
-                ViewUtilsKt.tost(getCurrentContext(), "Login done ");
+                ViewUtilsKt.tost(getCurrentContext(), getCurrentContext().getResources().getString(R.string.toast_login_done));
             }
         };
 
@@ -278,6 +335,19 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                    /* viewModel.show().observe(getViewLifecycleOwner(), nameObserver);
                     appSharedPreferences.setLoginStatus("done");*/
+
+        /* logInObject.accumulate("user_id",userId.toUpperCase());
+                        logInObject.accumulate("user_password",appUtils.getSha256(password));
+                        logInObject.accumulate("IMEI",imei);
+                        logInObject.accumulate("device_name",deviceUtils.getDeviceInfo());
+                        logInObject.accumulate("app_version",BuildConfig.VERSION_NAME);
+                        logInObject.accumulate("date",getAllInstance.dateFactroy.getTodayDate());
+                        logInObject.accumulate("location_coordinate","0.0");
+                        logInObject.accumulate("app_login_time","0");
+                        logInObject.accumulate("app_request","0");
+                        logInObject.accumulate("logout_time","0");
+                        logInObject.accumulate("android_version","0");
+                        logInObject.accumulate("android_api_version","0");*/
     }
 
 }

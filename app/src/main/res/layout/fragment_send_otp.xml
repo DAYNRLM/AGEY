@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.login.AuthFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.login.SendOtpFragment">
 
     <data>
 
@@ -30,7 +30,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/et_enter_userId"
+                android:hint="@string/et_enter_mobile_number"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 app:errorEnabled="true"
@@ -39,55 +39,23 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_userId"
+                    android:id="@+id/et_mobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lines="1"
-                    android:maxLength="15"
+                    android:maxLength="10"
                     android:fontFamily="@font/manrope_regular"
-                    android:inputType="text" />
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/et_enter_password"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:errorEnabled="true"
-                app:endIconMode="password_toggle"
-                android:fontFamily="@font/manrope_regular"
-                app:boxStrokeColor="@color/outline_strok"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:maxLength="15"
-                    android:fontFamily="@font/manrope_regular"
-                    android:inputType="textPassword" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tv_forget_password"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_forget_pw"
-                android:textColor="@color/orange_500"
-                android:layout_marginRight="15sp"
-                android:fontFamily="@font/manrope_semi_bold" />
 
 
         </LinearLayout>
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_sendOtp"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +63,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            android:text="@string/btn_login"
+            android:text="@string/btn_send_otp"
             android:textSize="16sp"
             android:insetTop="0dp"
             android:insetBottom="0dp"

@@ -15,12 +15,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tollBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/orange_500"
             android:elevation="4dp"
+            app:menu="@menu/menu"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 

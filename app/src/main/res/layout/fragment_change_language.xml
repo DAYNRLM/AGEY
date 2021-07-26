@@ -30,7 +30,7 @@
                 <TextView
                     android:id="@+id/tv_click"
                     style="@style/TitleTextViewTheme"
-                    android:text="Select Language" />
+                    android:text="@string/tv_select_language" />
 
             </LinearLayout>
 

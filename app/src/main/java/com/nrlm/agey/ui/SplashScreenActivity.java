@@ -12,12 +12,14 @@ import com.nrlm.agey.R;
 import com.nrlm.agey.ui.login.AuthActivity;
 import com.nrlm.agey.ui.mpin.MpinActivity;
 import com.nrlm.agey.utils.AppSharedPreferences;
+import com.nrlm.agey.utils.AppUtils;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN_TIME_OUT=4000;
 
     AppSharedPreferences appSharedPreferences;
+    AppUtils appUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
         appSharedPreferences =AppSharedPreferences.getInstance(this);
+        appUtils = AppUtils.getInstance();
+
+        setLocal();
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -35,6 +42,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, SPLASH_SCREEN_TIME_OUT);
 
+    }
+
+    private void setLocal() {
+        if(appSharedPreferences.getLanguageCode().equalsIgnoreCase("")){
+            appSharedPreferences.setLanguageCode("en");
+        }
+        appUtils.setLocale(appSharedPreferences.getLanguageCode(),getResources());
     }
 
     private void goToNextScreen() {

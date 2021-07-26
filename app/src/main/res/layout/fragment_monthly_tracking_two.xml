@@ -41,7 +41,7 @@
                         android:layout_weight="0.7"
                         android:fontFamily="@font/manrope_extra_bold"
                         android:padding="@dimen/space_2dp"
-                        android:text="Registration Number"
+                        android:text="@string/tv_reg_number"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_16sp" />
 
@@ -90,7 +90,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Special trip for students were run in the month?"
+                            android:hint="@string/tv_special_trip"
                             android:padding="3dp">
 
                             <AutoCompleteTextView
@@ -111,7 +111,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Is the vehicle runs on a pre-defined route?"
+                            android:hint="@string/tv_pre_define"
                             android:padding="3dp">
 
                             <AutoCompleteTextView
@@ -150,7 +150,7 @@
                             android:background="@color/brown_200"
                             android:fontFamily="@font/montserrat_regular"
                             android:paddingLeft="@dimen/space_5dp"
-                            android:text="Details for pre-defined route"
+                            android:text="@string/tv_pre_define_detail"
                             android:textColor="@color/black" />
 
                         <LinearLayout
@@ -167,7 +167,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="The number of days run during the month:"
+                                android:text="@string/tv_number_of_run"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -212,7 +212,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="The number of trips that the vehicle runs in a pre-defined route per day (Avg)"
+                                android:text="@string/tv_avg_run"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -255,7 +255,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="How many trips run from the village during the month? "
+                                android:text="@string/tv_how_many_run"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -303,7 +303,7 @@
                             android:background="@color/brown_200"
                             android:fontFamily="@font/montserrat_regular"
                             android:paddingLeft="@dimen/space_5dp"
-                            android:text="Tax and Insurance Detail"
+                            android:text="@string/tv_tax_detail"
                             android:textColor="@color/black" />
 
 
@@ -320,7 +320,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="Renewal of road tax deposit in this month"
+                                android:text="@string/toast_text_renewal"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -360,7 +360,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="Tax deposited Amount"
+                                android:text="@string/tv_tax_deposit_amount"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -398,7 +398,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="nsurance Renewed?"
+                                android:text="@string/tv_insurance_renewed"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -443,7 +443,7 @@
                         android:background="@color/brown_200"
                         android:fontFamily="@font/montserrat_regular"
                         android:paddingLeft="@dimen/space_5dp"
-                        android:text="Assessment Detail"
+                        android:text="@string/tv_assesment_detail"
                         android:textColor="@color/black" />
 
 
@@ -460,7 +460,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.7"
-                                android:text="Is the Vehicle operational:"
+                                android:text="@string/tv_is_vehicle_operational"
                                 android:textColor="@color/black"
                                 android:fontFamily="@font/montserrat_regular"/>
 
@@ -493,7 +493,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Reason for vehicle not being operational"
+                            android:hint="@string/tv_reason_operation"
                             android:layout_weight="1.3"
                             android:padding="3dp">
 
@@ -514,7 +514,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat_regular"
-                            android:hint="Assessment of CLF/VO on operation of vehicle"
+                            android:hint="@string/tv_assesment_done"
                             android:padding="3dp">
 
                             <AutoCompleteTextView
@@ -554,7 +554,7 @@
             android:fontFamily="@font/manrope_semi_bold"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="Next"
+            android:text="@string/btn_next"
             android:textSize="16sp"
             app:icon="@drawable/ic_baseline_arrow_next"
             app:iconGravity="textEnd"/>

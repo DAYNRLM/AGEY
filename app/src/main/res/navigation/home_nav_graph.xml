@@ -31,7 +31,7 @@
     <fragment
         android:id="@+id/assignVehicleFragment"
         android:name="com.nrlm.agey.ui.home.AssignVehicleFragment"
-        android:label="Vehicle Detail"
+        android:label="@string/fragment_vehicle_detail"
         tools:layout="@layout/fragment_assign_vehicle">
         <action
             android:id="@+id/action_assignVehicleFragment_to_monthlyTrackingFragment"
@@ -40,8 +40,14 @@
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="com.nrlm.agey.ui.home.AboutUsFragment"
-        android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" />
+        android:label="@string/fragment_notification"
+        tools:layout="@layout/fragment_about_us" >
+        <action
+            android:id="@+id/action_aboutUsFragment_to_assignVehicleFragment"
+            app:destination="@id/assignVehicleFragment"
+            app:popUpTo="@id/assignVehicleFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <action
         android:id="@+id/action_global_aboutUsFragment"
         app:destination="@id/aboutUsFragment" />
@@ -53,7 +59,7 @@
     <fragment
         android:id="@+id/changeLanguageFragment"
         android:name="com.nrlm.agey.ui.home.ChangeLanguageFragment"
-        android:label="Change Language"
+        android:label="@string/fragment_change_language"
         tools:layout="@layout/fragment_change_language">
         <action
             android:id="@+id/action_changeLanguageFragment_to_assignVehicleFragment"
@@ -64,7 +70,7 @@
     <fragment
         android:id="@+id/monthlyTrackingFragment"
         android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragment"
-        android:label="Monthly Vehicle Tracking"
+        android:label="@string/fragment_monthly_tracking"
         tools:layout="@layout/fragment_monthly_tracking">
 
         <action
@@ -74,7 +80,7 @@
     <fragment
         android:id="@+id/monthlyTrackingFragmentTwo2"
         android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragmentTwo"
-        android:label="Monthly Vehicle Tracking"
+        android:label="@string/fragment_monthly_tracking"
         tools:layout="@layout/fragment_monthly_tracking_two">
         <action
             android:id="@+id/action_monthlyTrackingFragmentTwo2_to_monthlyTrackingFragmentThree"
@@ -83,7 +89,7 @@
     <fragment
         android:id="@+id/monthlyTrackingFragmentThree"
         android:name="com.nrlm.agey.ui.home.MonthlyTrackingFragmentThree"
-        android:label="Monthly Vehicle Tracking"
+        android:label="@string/fragment_monthly_tracking"
         tools:layout="@layout/fragment_monthly_tracking_three">
         <action
             android:id="@+id/action_monthlyTrackingFragmentThree_to_assignVehicleFragment"

@@ -3,15 +3,22 @@ package com.nrlm.agey.ui.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavDirections;
 
+import com.nrlm.agey.HomeNavGraphDirections;
 import com.nrlm.agey.R;
 import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
 import com.nrlm.agey.databinding.FragmentMonthlyTrackingBinding;
@@ -20,6 +27,7 @@ import com.nrlm.agey.model.SampleObj;
 import com.nrlm.agey.model.TestObject;
 import com.nrlm.agey.repository.HomeRepository;
 import com.nrlm.agey.ui.BaseFragment;
+import com.nrlm.agey.utils.SampleData;
 import com.nrlm.agey.utils.ViewUtilsKt;
 
 public class MonthlyTrackingFragmentTwo extends BaseFragment<HomeViewModel, FragmentMonthlyTrackingTwoBinding, HomeRepository,HomeViewModelFactory> {
@@ -29,6 +37,8 @@ public class MonthlyTrackingFragmentTwo extends BaseFragment<HomeViewModel, Frag
     ArrayAdapter<String> yesnoAdapter;
     ArrayAdapter<String> reasonAdapter;
     ArrayAdapter<String> assesmentAdapter;
+    MenuItem menuItem;
+    TextView badgeTv;
     @Override
     public Class<HomeViewModel> getViewModel() {
         return HomeViewModel.class;
@@ -94,6 +104,8 @@ public class MonthlyTrackingFragmentTwo extends BaseFragment<HomeViewModel, Frag
         super.onViewCreated(view, savedInstanceState);
         testObject =TestObject.getInstance();
         binding.setTestObj(testObject);
+        setHasOptionsMenu(true);
+        viewModel.getTrackingData();
         appUtils.showLog("re******"+appSharedPreferences.getVehicleRegNum(),MonthlyTrackingFragmentTwo.class);
 
         binding.tvRegNumber.setText(appSharedPreferences.getVehicleRegNum());
@@ -114,16 +126,48 @@ public class MonthlyTrackingFragmentTwo extends BaseFragment<HomeViewModel, Frag
         binding.btnNext.setOnClickListener(view1 -> {
             testObject.taxAmount =binding.etTaxAmount.getText().toString();
             if(testObject.vehicleRunningPredefiendRoute.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select Pre-Defines Route Yes/No");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_pre_define_route));
             }else if(testObject.renewalOfRoadTax.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select Road Tax renewal Yes/No");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_text_renewal));
             }else if(testObject.isvehicleOperational.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select Vehicle operational Yes/No");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_vehicle_option));
             }else {
                 NavDirections action = MonthlyTrackingFragmentTwoDirections.actionMonthlyTrackingFragmentTwo2ToMonthlyTrackingFragmentThree();
                 navController.navigate(action);
             }
         });
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        appUtils.showLog("inside fragment menu ",AssignVehicleFragment.class);
+
+        menuItem = menu.findItem(R.id.item_about_app);
+        SampleData.Companion.getNotificationCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer==0){
+                    appUtils.showLog("inside ifl"+integer,HomeActivity.class);
+                    menuItem.setActionView(null);
+                }else {
+                    appUtils.showLog("inside else"+integer,HomeActivity.class);
+                    menuItem.setActionView(R.layout.notification_badge);
+                    View view = menuItem.getActionView();
+                    badgeTv= view.findViewById(R.id.tv_badgeCounter);
+                    badgeTv.setText(""+integer);
+
+                    FrameLayout frameLayout = view.findViewById(R.id.top_layout);
+
+                    frameLayout.setOnClickListener(view1 -> {
+                        NavDirections action = HomeNavGraphDirections.actionGlobalAboutUsFragment();
+                        navController.navigate(action);
+
+                    });
+                }
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void setListner() {

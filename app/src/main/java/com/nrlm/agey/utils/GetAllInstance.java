@@ -8,7 +8,6 @@ public class GetAllInstance {
     public  AppSharedPreferences appSharedPreferences;
     public  AppDeviceInfoUtils deviceUtils;
     public  AppDateFactory dateFactroy;
-    public  PermissionHelper permissionHelper;
 
     public static GetAllInstance getInstance(Context con) {
         if (getAllInstance == null)
@@ -20,6 +19,5 @@ public class GetAllInstance {
         appSharedPreferences =AppSharedPreferences.getInstance(context);
         deviceUtils =AppDeviceInfoUtils.getInstance(context);
         dateFactroy =AppDateFactory.getInstance();
-        permissionHelper =PermissionHelper.getInstance(context);
     }
 }

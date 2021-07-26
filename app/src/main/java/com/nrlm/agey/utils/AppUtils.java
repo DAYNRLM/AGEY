@@ -1,6 +1,9 @@
 package com.nrlm.agey.utils;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.Random;
 
 public class AppUtils {
@@ -86,5 +90,30 @@ public class AppUtils {
         Random random = new Random();
         int otp = 1000 + random.nextInt(9000);
         return "" + otp;
+    }
+
+    public void setLocale(String localeName, Resources res) {
+        Locale myLocale = new Locale(localeName);
+        Locale.setDefault(myLocale);
+        // Resources res = context.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.setLocale(myLocale);
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+
+
+
+
+       /* val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        val config = context.resources.configuration
+
+        config.setLocale(locale)
+
+        context.createConfigurationContext(config)
+        context.resources.updateConfiguration(config, context.resources.displayMetrics)*/
+
     }
 }

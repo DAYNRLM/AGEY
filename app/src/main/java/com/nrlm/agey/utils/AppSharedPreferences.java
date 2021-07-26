@@ -121,6 +121,50 @@ public class AppSharedPreferences {
         prefsEditor.apply();
     }
 
+    public String getStateShortName() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_STATE_SHORT_NAME, "");
+    }
+
+    public void setStateShortName(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_STATE_SHORT_NAME,value);
+        prefsEditor.apply();
+    }
+
+    public String getStateShortCode() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_STATE_SHORT_CODE, "");
+    }
+
+    public void setStateShortCode(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_STATE_SHORT_CODE,value);
+        prefsEditor.apply();
+    }
+
+    public String getLogOutTime() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_LOGOUT_TIME, "");
+    }
+
+    public void setLogOutTime(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_LOGOUT_TIME,value);
+        prefsEditor.apply();
+    }
+
+
+    public String getLanguageCode() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_CHANG_LANGUAGE, "");
+    }
+
+    public void setLanguageCode(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_CHANG_LANGUAGE,value);
+        prefsEditor.apply();
+    }
 
     public void removeDataAtLogout(){
 
@@ -131,6 +175,8 @@ public class AppSharedPreferences {
         removeKeyData(PrefrenceManager.PREF_KEY_VEHICLE_REG_NUM);
         removeKeyData(PrefrenceManager.PREF_KEY_VALID_USER_ID);
         removeKeyData(PrefrenceManager.PREF_KEY_BLOCK_CODE);
+        removeKeyData(PrefrenceManager.PREF_KEY_STATE_SHORT_CODE);
+        removeKeyData(PrefrenceManager.PREF_KEY_STATE_SHORT_NAME);
 
     }
 }

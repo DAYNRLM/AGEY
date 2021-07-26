@@ -9,18 +9,25 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.NavArgs;
 import androidx.navigation.NavDirections;
 
+import com.nrlm.agey.HomeNavGraphDirections;
 import com.nrlm.agey.R;
 import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
 import com.nrlm.agey.database.entity.CategoryEntity;
@@ -40,6 +47,8 @@ import java.util.List;
 public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, FragmentMonthlyTrackingBinding, HomeRepository, HomeViewModelFactory> {
     TestObject testObject;
     ArrayAdapter<String> categoryAdapter;
+    MenuItem menuItem;
+    TextView badgeTv;
 
 
     @Override
@@ -87,6 +96,9 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         appUtils.showLog("****on create********",MonthlyTrackingFragment.class);
+        setHasOptionsMenu(true);
+        viewModel.getTrackingData();
+
 
         testObject =TestObject.getInstance();
         binding.setTestObj(testObject);
@@ -131,30 +143,30 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
             String monthlyIncome =binding.etMonthlyIncome.getText().toString();
 
             if(catVehicle.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select vehicle Category first.");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_select_cat));
             }else if (trackingYear.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select Month");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_select_year));
 
             }else if(trackingMonth.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Select year");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_select_month));
 
             }else if(openingKm.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Enter Opening KM Reading");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_opening_km));
 
             }else if(closingKm.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Enter Closing KM Reading");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_closing_km));
 
             }else if(totalKm.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Enter Total Km");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_enter_totak_km));
 
             }else if(amountPaid.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Enter Repaid Amount");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_enter_repaid_amount));
 
             }else if(balanceAmount.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Enter Blance Amount");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_enter_blnce_amount));
 
             }else if (monthlyIncome.isEmpty()){
-                ViewUtilsKt.tost(getCurrentContext(),"Monthly net income from AGEY vehicle");
+                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_enter_agey_income));
 
             }else {
                 testObject.openingKm=openingKm;
@@ -173,15 +185,49 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
 
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        appUtils.showLog("inside fragment menu ",AssignVehicleFragment.class);
+
+        menuItem = menu.findItem(R.id.item_about_app);
+        SampleData.Companion.getNotificationCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if(integer==0){
+                    appUtils.showLog("inside ifl"+integer,HomeActivity.class);
+                    menuItem.setActionView(null);
+                }else {
+                    appUtils.showLog("inside else"+integer,HomeActivity.class);
+                    menuItem.setActionView(R.layout.notification_badge);
+                    View view = menuItem.getActionView();
+                    badgeTv= view.findViewById(R.id.tv_badgeCounter);
+                    badgeTv.setText(""+integer);
+
+                    FrameLayout frameLayout = view.findViewById(R.id.top_layout);
+
+                    frameLayout.setOnClickListener(view1 -> {
+                        NavDirections action = HomeNavGraphDirections.actionGlobalAboutUsFragment();
+                        navController.navigate(action);
+
+                    });
+                }
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
     private void loadTotalKm() {
-        String openingKm ="2000";
+
+        String openingKm =viewModel.getLstMonthClosingKm(appSharedPreferences.getVehicleRegNum());
+       // String openingKm ="";
         if(!openingKm.equalsIgnoreCase("")) {
             binding.etOpeningKm.setInputType(InputType.TYPE_NULL);
             binding.etOpeningKm.setText(openingKm);
             setFocsChangListner();
         }else {
-            int opening = Integer.parseInt(binding.etOpeningKm.getText().toString());
-
+           // int opening = Integer.parseInt(binding.etOpeningKm.getText().toString());
+            setFocsChangListner();
 
         }
     }
@@ -193,20 +239,24 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
             public void onFocusChange(View view, boolean b) {
                 if (b){
                     if(binding.etOpeningKm.getText().toString().isEmpty()){
-                        ViewUtilsKt.tost(getCurrentContext(),"Please Enter Opening KM first...");
+                        ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_opening_km_first));
                     }
                 }else {
 
-
-                    int opening = Integer.parseInt(binding.etOpeningKm.getText().toString());
-                    int closing = Integer.parseInt(binding.etClosingKm.getText().toString());
-
-                    if(closing<opening){
-                        ViewUtilsKt.tost(getCurrentContext(),"****closing bdi karo***");
+                    if(binding.etOpeningKm.getText().toString().isEmpty()){
+                        ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_opening_km_first));
                         binding.etClosingKm.setText("");
                     }else {
-                        int result =closing-opening;
-                        binding.etTotlKm.setText(""+result);
+                        int opening = Integer.parseInt(binding.etOpeningKm.getText().toString());
+                        int closing = Integer.parseInt(binding.etClosingKm.getText().toString());
+
+                        if(closing<opening){
+                            ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_more_then));
+                            binding.etClosingKm.setText("");
+                        }else {
+                            int result =closing-opening;
+                            binding.etTotlKm.setText(""+result);
+                        }
                     }
                 }
             }
@@ -249,7 +299,7 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ViewUtilsKt.tost(getCurrentContext(),"Enter Opening KM. first");
+                                ViewUtilsKt.tost(getCurrentContext(),getCurrentContext().getResources().getString(R.string.toast_error_opening_km_first));
                                 binding.etClosingKm.setText("");
                             }
                         }, 1000);
@@ -287,7 +337,7 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
     private void loadCalender() {
         Calendar today = Calendar.getInstance();
         binding.etSelectMonth.setOnClickListener(view1 -> {
-            ViewUtilsKt.tost(getCurrentContext(),"hiiiii");
+           // ViewUtilsKt.tost(getCurrentContext(),"hiiiii");
 
             MonthPickerDialog.Builder builder = new MonthPickerDialog.Builder(getCurrentContext(), new MonthPickerDialog.OnDateSetListener() {
                 @Override
@@ -313,7 +363,7 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
                     .setActivatedYear(today.get(Calendar.YEAR))
                     .setMaxYear(today.get(Calendar.YEAR))
                     .setTitle("Select Month")
-                    .setMonthRange(Calendar.JANUARY, Calendar.DECEMBER).build().show();
+                    .setMonthRange(Calendar.JANUARY, today.get(Calendar.MONTH)).build().show();
         });
 
     }

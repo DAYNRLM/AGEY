@@ -1,16 +1,154 @@
 <resources>
     <string name="app_name">AGEY</string>
-
-
     <string name="mord"><b>MINISTRY OF RURAL DEVELOPMENT</b></string>
     <string name="govtindia">GOVERNMENT OF INDIA</string>
     <string name="mord_hindi"><b>ग्रामीण विकास मंत्रालय</b></string>
     <string name="govtindia_hindi">भारत सरकार</string>
-    
     <string name="Rs">%\u20B9</string>
-
     <string name="Rs_new">\u20B9</string>
     <string name="rs_old">\u20A8</string>
+    <string name="et_enter_userId">Enter user id</string>
+    <string name="et_enter_password">Password</string>
+    <string name="et_enter_new_password">New Password</string>
+    <string name="et_enter_Confirm_password">Confirm New Password</string>
+    <string name="et_enter_OTP">Enter OTP</string>
+    <string name="et_enter_mobile_number">Mobile Number</string>
+    <string name="otp_massage">is One Time Password(OTP) for the AGEY application. Do not share it with anyone.</string>
+    <string name="otp_greeting">Namaskar!</string>
+    <string name="tv_forget_pw">Forgot Password?</string>
+    <string name="tv_mpin_title">We Value Security</string>
+    <string name="tv_mpin_msg">Set new MPIN to Keep your Application safe and secure</string>
+    <string name="tv_mpin_confirm">Confirm Mpin</string>
+    <string name="tv_mpin_set_mpin">Set Mpin </string>
+    <string name="tv_mpin_user_msg">Hi, AGEY User</string>
+    <string name="tv_mpin_userId">UserId:</string>
+    <string name="tv_logout">Logout</string>
+    <string name="tv_aboutus_title"> UnSync Data</string>
+    <string name="tv_aboutus_error_msg">No data Found for Sync!!!</string>
+    <string name="tv_location_title">Select Location</string>
+    <string name="tv_vehicle_reg_no">Vehicle Regd No: </string>
+    <string name="tv_vehicle_detail">Vehicle Detail</string>
+    <string name="tv_vehicle_owned_by">Vehicle owned by:</string>
+    <string name="tv_vehicle_cat">Category of Vehicle</string>
+    <string name="tv_vehicle_type">Vehicle Type:</string>
+    <string name="tv_vehicle_manufacturer">Manufacturer of vehicle</string>
+    <string name="tv_vehicle_model">Vehicle Model:</string>
+    <string name="tv_payment_detail">Payment Details</string>
+    <string name="tv_vehicle_cost">Total cost of vehicle</string>
+    <string name="tv_loan_amount">Loan amount for vehicle</string>
+    <string name="tv_no_emi">No. of EMIs</string>
+    <string name="tv_value_emi">Value per EMI</string>
+    <string name="tv_amount_paid">Amt. paid: As on:</string>
+    <string name="tv_paid_emi">Paid EMIs</string>
+    <string name="tv_select_language">Select Language</string>
+    <string name="tv_reg_number">Registration Number</string>
+    <string name="tv_km_reading">Kilometer reading</string>
+    <string name="tv_km_opening">Opening Kilometer</string>
+    <string name="tv_km_closing">Closing Kilometer</string>
+    <string name="tv_km_total">Total Kilometer Reading</string>
+    <string name="tv_amount_repaid_current">Amount Repaid in current month</string>
+    <string name="tv_amount_balance_loan">Balance loan amount (CIF from CLF only)</string>
+    <string name="tv_emi_overdue">No of EMI overdue (if any)</string>
+    <string name="tv_amount_overdue">Amount of overdue (if any)</string>
+    <string name="tv_monthly_income">Monthly net income from AGEY vehicle</string>
+    <string name="tv_upload_insurance_docs">Upload Insurance Doc</string>
+    <string name="tv_take_photo">Take Photo</string>
+    <string name="tv_special_trip">Special trip for students were run in the month?</string>
+    <string name="tv_pre_define">Is the vehicle runs on a pre-defined route?</string>
+    <string name="tv_pre_define_detail">Details for pre-defined route</string>
+    <string name="tv_number_of_run">The number of days run during the month:</string>
+    <string name="tv_avg_run">The number of trips that the vehicle runs in a pre-defined route per day (Avg)</string>
+    <string name="tv_how_many_run">How many trips run from the village during the month? </string>
+    <string name="tv_tax_detail">Tax and Insurance Detail</string>
+    <string name="tv_tax_renewal">Renewal of road tax deposit in this month</string>
+    <string name="tv_tax_deposit_amount">Tax deposited Amount</string>
+    <string name="tv_insurance_renewed">Insurance Renewed?</string>
+    <string name="tv_assesment_detail">Assessment Detail</string>
+    <string name="tv_is_vehicle_operational">Is the Vehicle operational:</string>
+    <string name="tv_reason_operation">Reason for vehicle not being operational</string>
+    <string name="tv_assesment_done">Assessment of CLF/VO on operation of vehicle</string>
 
 
+    <string name="dialog_adapter_title">Data save successfully</string>
+    <string name="dialog_data_saved">Thanks... Your Data is save Successfully on server</string>
+    <string name="dialog_duplicate_data">Duplicate Data</string>
+    <string name="dialog_duplicate_data_msg">Data all ready on server for this month and year</string>
+    <string name="dialog_ok_btn">Ok</string>
+    <string name="dialog_msg_save">Data saved for </string>
+    <string name="dialog_msg_save_continue"> is successfully</string>
+    <string name="dialog_loading">loading...</string>
+    <string name="dialog_network_msg_title">Network/Connection error</string>
+    <string name="dialog_network_msg">Check your data connection and refresh</string>
+    <string name="dialog_positive_btn">setting</string>
+    <string name="dialog_cancel_btn">cancel</string>
+    <string name="dialog_save_local_memory">Check your data connection and data will be save in Local Memory</string>
+    <string name="dialog_not_save">Data Not Saved</string>
+    <string name="dialog_duplicate_entry">Data not save due to duplicate entry for </string>
+    <string name="dialog_reset_password">Reset Password</string>
+    <string name="dialog_go_to_login">Go to login</string>
+    <string name="dialog_error_reset_msg">Please try again with another userId and mobile number</string>
+    <string name="dialog_reset_done_msg">Your password is successfully updated please login with your new password</string>
+    <string name="dialog_language_title">Chang Language</string>
+    <string name="dialog_language_msg">Do you want to change language in </string>
+    <string name="dialog_yes_btn">Yes</string>
+    <string name="dialog_no_btn">No</string>
+    <string name="dialog_sign_out_title">Confirm Sign Out</string>
+    <string name="dialog_sign_out_msg">You are signing out of your app on this device.</string>
+    <string name="dialog_btn_signout">sign out</string>
+    <string name="toast_success_sign_out">Successfully SignOut</string>
+
+
+    <string name="fragment_vehicle_detail">Vehicle Detail</string>
+    <string name="fragment_notification">Notification</string>
+    <string name="fragment_change_language">Change Language</string>
+    <string name="fragment_monthly_tracking">Monthly Tracking</string>
+
+
+    <string name="menu_setting">Settings</string>
+    <string name="menu_notification">Notification</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_info">info</string>
+
+
+
+    <string name="error_invalid_userId">Please check your UserId and Password</string>
+    <string name="error_server_error">Server Error!!</string>
+    <string name="error_server_msg">Check your internet connectivity/Please try after some time</string>
+
+    <string name="btn_monthly_tracking">Monthly Tracking</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_confirm">confirm</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_save_data">Save Data </string>
+    <string name="btn_login">Login</string>
+    <string name="btn_send_otp">Send OTP</string>
+    <string name="btn_verify_mpin">Verify Mpin</string>
+    <string name="btn_update_password">Update Password</string>
+
+    <string name="toast_home_select_vehicle">Please Select Vehicle Registration Number</string>
+    <string name="toast_error_select_cat">Select vehicle Category first.</string>
+    <string name="toast_error_select_month">Select Month</string>
+    <string name="toast_error_select_year">Select year</string>
+    <string name="toast_error_opening_km">Enter Opening KM Reading</string>
+    <string name="toast_error_closing_km">Enter Closing KM Reading</string>
+    <string name="toast_error_enter_totak_km">Enter Total Km</string>
+    <string name="toast_error_enter_repaid_amount">Enter Repaid Amount</string>
+    <string name="toast_error_enter_blnce_amount">Enter Balance Amount</string>
+    <string name="toast_error_enter_agey_income">Monthly net income from AGEY vehicle</string>
+    <string name="toast_error_opening_km_first">Please Enter Opening KM first...</string>
+    <string name="toast_error_more_then">Closing Km is more then opening Km</string>
+    <string name="toast_pre_define_route">Select Pre-Defines Route Yes/No</string>
+    <string name="toast_text_renewal">Select Road Tax renewal Yes/No</string>
+    <string name="toast_vehicle_option">Select Vehicle operational Yes/No</string>
+    <string name="toast_enter_mpin"> Enter Mpin First</string>
+    <string name="toast_enter_confirm_mpin"> Enter Confirm Mpin First</string>
+    <string name="toast_mpin_not_matched"> Confirm Mpin and Enter Mpin is not Matched</string>
+    <string name="toast_mpin_not_empty">Mpin is not Empty...</string>
+    <string name="toast_mpin_wrong_msg">Mpin is Wrong please enter Right Mpin..</string>
+    <string name="toast_enter_userName_password">Enter user name and password</string>
+    <string name="toast_login_done">Login done.</string>
+    <string name="toast_enter_10digit_mobile_number">Enter 10 digit valid Mobile Number</string>
+    <string name="toast_enter_userid">Enter User Id</string>
+    <string name="toast_password_error_msg">Password must contain least 6 alphanumeric characters</string>
+    <string name="toast_otp_error_msg">Please enter a valid 4 digit OTP</string>
 </resources>

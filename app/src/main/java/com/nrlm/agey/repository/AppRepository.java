@@ -17,6 +17,7 @@ import com.nrlm.agey.database.entity.AssignVehicleDataEntity;
 import com.nrlm.agey.database.entity.BlockEntity;
 import com.nrlm.agey.database.entity.CategoryEntity;
 import com.nrlm.agey.database.entity.LanguageEntity;
+import com.nrlm.agey.database.entity.LastMonthDetailEntity;
 import com.nrlm.agey.database.entity.ManfactureModelEntity;
 import com.nrlm.agey.database.entity.ManufactureEntity;
 import com.nrlm.agey.database.entity.UserDetailEntity;
@@ -256,6 +257,36 @@ public class AppRepository extends BaseRepository {
         });
     }
 
+    /****************Last month data  details DB*****************************/
+
+    public void insertLastMonthEntity(LastMonthDetailEntity lastMonthDetailEntity) {
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                lastMonthDetailDao.insertAll(lastMonthDetailEntity);
+            }
+        });
+    }
+
+    /*******************get user data**************************/
+    public List<UserDetailEntity> getUserdetail(){
+        List<UserDetailEntity> userData=null;
+        try {
+            Callable<List<UserDetailEntity>> listCallable = new Callable<List<UserDetailEntity>>() {
+                @Override
+                public List<UserDetailEntity> call() throws Exception {
+                    return userDetailDao.getAllData();
+                }
+            };
+            Future<List<UserDetailEntity>> future = Executors.newSingleThreadExecutor().submit(listCallable);
+            userData = future.get();
+
+        }catch (Exception e){
+
+        }
+        return userData;
+    }
+
 
     /*******************volly*************call**********************/
 
@@ -269,7 +300,8 @@ public class AppRepository extends BaseRepository {
         userEntity.mobile_number = data.getMobileNumber();
         userEntity.server_date_time = data.getServerDateTime();
         userEntity.app_version =data.getAppVersion();
-       // appRepository.insertUserData(userEntity);
+        userEntity.state_code=data.getStateCode();
+        userEntity.state_short_name=data.getStateShortName();
         insertUserData(userEntity);
 
 
@@ -278,7 +310,6 @@ public class AppRepository extends BaseRepository {
             BlockEntity blockEntity = new BlockEntity();
             blockEntity.block_code = assignObject.getBlockCode();
             blockEntity.block_name = assignObject.getBlockName();
-            //appRepository.insertBlockEntity(blockEntity);
             insertBlockEntity(blockEntity);
 
 
@@ -314,10 +345,20 @@ public class AppRepository extends BaseRepository {
                 assignVehicleDataEntity.insuranceRenewalData =vehicleObject.getInsuranceRenewalData();
 
                 assignVehicleDataEntity.blockCode =assignObject.getBlockCode();
-
-                //appRepository.insertVehicleEntity(assignVehicleDataEntity);
                 insertVehicleEntity(assignVehicleDataEntity);
 
+                List<MainDataResponse.MonthlyReport> monthelyReportDataList =  vehicleObject.getMonthlyReport();
+                for(MainDataResponse.MonthlyReport repostObject:monthelyReportDataList){
+                    MainDataResponse.LastMonthDetail lastMonthObject = repostObject.getLastMonthDetail();
+
+                    LastMonthDetailEntity lastMonthDetailEntity = new LastMonthDetailEntity();
+                    lastMonthDetailEntity.vehicle_reg_number =vehicleObject.getVehicleRegNumber();
+                    lastMonthDetailEntity.month_of_tracking=lastMonthObject.getMonthOfTracking();
+                    lastMonthDetailEntity.year_of_tracking=lastMonthObject.getYearOfTracking();
+                    lastMonthDetailEntity.opening_kilometer=lastMonthObject.getOpeningKilometer();
+                    lastMonthDetailEntity.closing_killometer=lastMonthObject.getClosingKillometer();
+                    insertLastMonthEntity(lastMonthDetailEntity);
+                }
             }
         }
 
@@ -327,7 +368,6 @@ public class AppRepository extends BaseRepository {
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.categoruId =categoryObject.getCategoryId();
             categoryEntity.categoryName = categoryObject.getCategoryName();
-           // appRepository.insertCategoryEntity(categoryEntity);
             insertCategoryEntity(categoryEntity);
         }
 
@@ -336,7 +376,6 @@ public class AppRepository extends BaseRepository {
             VehicleTypeEntity vehicleTypeEntity = new VehicleTypeEntity();
             vehicleTypeEntity.type_id =vehicleTypeObject.getTypeId();
             vehicleTypeEntity.type_name=vehicleTypeObject.getTypeName();
-           // appRepository.insertVehicleTypeEntity(vehicleTypeEntity);
             insertVehicleTypeEntity(vehicleTypeEntity);
         }
 
@@ -345,7 +384,6 @@ public class AppRepository extends BaseRepository {
             ManufactureEntity manufactureEntity = new ManufactureEntity();
             manufactureEntity.manufacturer_id =vehicleManufactureObject.getManufacturerId();
             manufactureEntity.manufacturer_name =vehicleManufactureObject.getManufacturerName();
-           // appRepository.insertManufactureEntity(manufactureEntity);
             insertManufactureEntity(manufactureEntity);
 
             List<MainDataResponse.VechModelInfo> modelList = vehicleManufactureObject.getVechModelInfo();
@@ -355,11 +393,14 @@ public class AppRepository extends BaseRepository {
                 manfactureModelEntity.manufacturer_id =vehicleManufactureObject.getManufacturerId();
                 manfactureModelEntity.veh_model_id = modelObject.getVehModelId();
                 manfactureModelEntity.veh_model_name=modelObject.getVehModelName();
-                //appRepository.insertModelEntity(manfactureModelEntity);
                 insertModelEntity(manfactureModelEntity);
             }
         }
+
+
     }
+
+
 
     public  void deleteDataBaseTable(){
         deleteTables();
