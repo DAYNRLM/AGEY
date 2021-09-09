@@ -47,6 +47,7 @@ import com.nrlm.agey.ui.mpin.MpinActivity;
 import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.CustomProgressDialog;
 import com.nrlm.agey.utils.NetworkUtils;
+import com.nrlm.agey.utils.PrefrenceManager;
 import com.nrlm.agey.utils.ViewUtilsKt;
 
 import org.json.JSONException;
@@ -206,46 +207,51 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                         jsonObject  = new JSONObject(response.toString());
                                     }
 
+                                    String msgStatus = jsonObject.getString("message");
 
-                                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                                    JSONObject userObject = dataObject.getJSONObject("user_data");
-                                    if (userObject.has("Errorstatus")) {
-                                        String errorMessage = userObject.getString("Errorstatus");
+                                    if(msgStatus.equalsIgnoreCase("failure")){
+                                        viewModel.noInterNetConnection(getCurrentContext());
+                                    }else {
+                                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                                        JSONObject userObject = dataObject.getJSONObject("user_data");
+                                        if (userObject.has("Errorstatus")) {
+                                            String errorMessage = userObject.getString("Errorstatus");
 
-                                        if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
-                                        } else if (errorMessage.equalsIgnoreCase("Invalid Password!!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);;
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
+                                            if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else if (errorMessage.equalsIgnoreCase("Invalid Password!!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);;
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
 
-                                        } else if (errorMessage.equalsIgnoreCase("Invalid Login !!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else if (errorMessage.equalsIgnoreCase("Invalid Login !!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else {
+
+                                            }
+
                                         } else {
-
+                                            // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
+                                            MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
+                                            viewModel.insertLoginData(monthlyTrackingDataEntity);
+                                            appSharedPreferences.setValidUserId(userId);
+                                            appSharedPreferences.setLoginStatus("done");
+                                            appSharedPreferences.setImeiNumber(getAllInstance.deviceUtils.getIMEINo1());
+                                            appSharedPreferences.setDeviceInfo(getAllInstance.deviceUtils.getDeviceInfo());
+                                            Intent intent = new Intent(getContext(), MpinActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
                                         }
-
-                                    } else {
-                                       // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
-                                        MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
-                                        viewModel.insertLoginData(monthlyTrackingDataEntity);
-                                        appSharedPreferences.setValidUserId(userId);
-                                        appSharedPreferences.setLoginStatus("done");
-                                        appSharedPreferences.setImeiNumber(getAllInstance.deviceUtils.getIMEINo1());
-                                        appSharedPreferences.setDeviceInfo(getAllInstance.deviceUtils.getDeviceInfo());
-                                        Intent intent = new Intent(getContext(), MpinActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
                                     }
 
                                 } catch (JSONException e) {
@@ -281,7 +287,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                             }
                         };
-                        volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login", encryptedObject, mResultCallBack);
+                        //https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login
+                        volleyService.postDataVolley("synData", PrefrenceManager.LOGIN_URL, encryptedObject, mResultCallBack);
                         //volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservice/services/agey/login", encryptedObject, mResultCallBack);
 
 
