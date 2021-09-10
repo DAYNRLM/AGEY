@@ -47,6 +47,7 @@ import com.nrlm.agey.ui.mpin.MpinActivity;
 import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.CustomProgressDialog;
 import com.nrlm.agey.utils.NetworkUtils;
+import com.nrlm.agey.utils.PrefrenceManager;
 import com.nrlm.agey.utils.ViewUtilsKt;
 
 import org.json.JSONException;
@@ -149,7 +150,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                         loginRequest.androidVersion = "0";
                         loginRequest.androidApiVersion = "0";
                         loginRequest.appRequest="";
-                        loginRequest.deviceImei = "083f1df032b675b3";
+                        loginRequest.deviceImei = "imei";//083f1df032b675b3
 
 
                         JSONObject logInObject = new JSONObject(loginRequest.javaToJson());
@@ -281,7 +282,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                             }
                         };
-                        volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login", encryptedObject, mResultCallBack);
+                        //https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login
+                        volleyService.postDataVolley("synData", PrefrenceManager.LOGIN_URL, encryptedObject, mResultCallBack);
                         //volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservice/services/agey/login", encryptedObject, mResultCallBack);
 
 

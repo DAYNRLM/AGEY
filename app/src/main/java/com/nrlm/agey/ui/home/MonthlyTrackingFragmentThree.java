@@ -238,7 +238,8 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                     }
                 };
                 //volleyService.postDataVolley("syncData","https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data",jsonObject,mResultCallBack);
-                volleyService.postDataVolley("syncData","https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data",encryptedObject,mResultCallBack);
+                //https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data
+                volleyService.postDataVolley("syncData",PrefrenceManager.SYNC_URL,encryptedObject,mResultCallBack);
 
                 //{"data_Sync":"Success"}
             }else {
