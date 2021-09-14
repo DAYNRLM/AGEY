@@ -162,6 +162,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                     e.printStackTrace();
                 }
 
+                appUtils.showLog("*****Normal objectttt****"+jsonObject.toString(), MonthlyTrackingFragmentThree.class);
 
                 JSONObject encryptedObject =new JSONObject();
                 try {
