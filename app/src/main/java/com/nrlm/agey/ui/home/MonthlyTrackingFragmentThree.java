@@ -152,6 +152,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
 
             if(NetworkUtils.isInternetOn(getContext())){
                 customProgressDialog.showProgress(getCurrentContext().getResources().getString(R.string.dialog_loading), false);
+                String test= PrefrenceManager.SYNC_URL;
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.accumulate("user_id",appSharedPreferences.getValidUserId());
@@ -195,6 +196,8 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                     public void notifySuccess(String requestType, JSONObject response) {
                         customProgressDialog.hideProgress();
                         Calendar today = Calendar.getInstance();
+
+
 
 
 

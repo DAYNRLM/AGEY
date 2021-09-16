@@ -141,6 +141,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
             password = binding.etPassword.getText().toString();
 
             appUtils.showLog("IMEI info: " + deviceUtils.getIMEINo1(), AuthFragment.class);
+            appUtils.showLog("password: " +appUtils.getSha256(password), AuthFragment.class);
 
             String imei =deviceUtils.getIMEINo1();
 

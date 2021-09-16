@@ -120,6 +120,9 @@
                                     android:text="@{assignVehicleModel.vehicleOwnedBy}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,6 +140,9 @@
                                     app:changedText="@{assignVehicleModel.vehicleCategory}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -154,6 +160,9 @@
                                     android:id="@+id/et_vehicleType"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,6 +180,9 @@
                                     android:id="@+id/et_manufactureOfVehicle"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -188,6 +200,9 @@
                                     android:id="@+id/et_vehicleModel"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -235,6 +250,9 @@
                                 app:priceText="@{assignVehicleModel.vehicleTotalCost}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:cursorVisible="false"
                                 android:fontFamily="@font/montserrat_regular" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -252,6 +270,9 @@
                                 app:priceText="@{assignVehicleModel.vehicleLoanAmountFromClf}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:cursorVisible="false"
                                 android:fontFamily="@font/montserrat_regular" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -277,6 +298,9 @@
                                     android:text="@{assignVehicleModel.totalNumberOfEmi}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -295,6 +319,9 @@
                                     app:priceText="@{assignVehicleModel.valuePerEmi}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -323,6 +350,9 @@
                                     app:priceText="@{assignVehicleModel.totalAmountPaid}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
@@ -341,6 +371,9 @@
                                     android:text="@{assignVehicleModel.numberOfEmiPaid}"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:focusable="false"
+                                    android:clickable="false"
+                                    android:cursorVisible="false"
                                     android:fontFamily="@font/montserrat_regular" />
                             </com.google.android.material.textfield.TextInputLayout>
 
