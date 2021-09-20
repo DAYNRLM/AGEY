@@ -221,6 +221,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                         if (userObject.has("Errorstatus")) {
                                             String errorMessage = userObject.getString("Errorstatus");
 
+                                            //
+
                                             if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
                                                 loginError.imageId="0";
                                                 loginError.errorMessage = errorMessage;
@@ -238,6 +240,12 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                                 loginError.imageId="0";
                                                 loginError.errorMessage = errorMessage;
                                                 loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            }else if (errorMessage.equalsIgnoreCase("Invalid date!!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = "Check your device Date and Time";
                                                 viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                         .observe(getViewLifecycleOwner(), resetObserver);
                                             } else if(errorMessage.equalsIgnoreCase(" Please wait for 15 minutes you exceed limit more than 5 !!!")){

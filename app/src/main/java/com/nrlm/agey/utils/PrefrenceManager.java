@@ -32,14 +32,14 @@ public class PrefrenceManager {
 
      /** for live demo**/
 
-    /* public static final String HTTP_TYPE = "https";
+     public static final String HTTP_TYPE = "https";
      public static final String IP_ADDRESS = "nrlm.gov.in";
-     public static final String NRLM_STATUS = "nrlmwebservicedemo";*/
+     public static final String NRLM_STATUS = "nrlmwebservicedemo";
 
      /***for live****/
-     public static final String HTTP_TYPE="https";
+  /*   public static final String HTTP_TYPE="https";
      public static final String IP_ADDRESS="nrlm.gov.in";
-     public static final String NRLM_STATUS = "nrlmwebservice";
+     public static final String NRLM_STATUS = "nrlmwebservice";*/
 
      public static final String LOGIN_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/agey/login";
      public static final String SYNC_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/ageysync/data";
