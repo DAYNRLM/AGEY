@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +22,9 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.android.volley.VolleyError;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
 import com.nrlm.agey.BuildConfig;
+import com.nrlm.agey.MainActivity;
 import com.nrlm.agey.R;
 import com.nrlm.agey.database.AppDatabase;
 import com.nrlm.agey.database.entity.UserDetailEntity;
@@ -61,6 +60,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -76,6 +76,9 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
     String password = "";
 
     LayoutInflater layoutInflater;
+
+    String SITE_KEY = "6LeV72ocAAAAADp9wIliLmeqlNv05cEJC3Jqd3hz";
+    String SECRET_KEY = "6LeV72ocAAAAAOnGK2nYDKjgE1wlgAX-vGlr7qrI";
 
 
     @Override
@@ -129,6 +132,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
             password = binding.etPassword.getText().toString();
 
             appUtils.showLog("IMEI info: " + deviceUtils.getIMEINo1(), AuthFragment.class);
+            appUtils.showLog("password: " +appUtils.getSha256(password), AuthFragment.class);
 
             String imei =deviceUtils.getIMEINo1();
 
@@ -150,7 +154,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                         loginRequest.androidVersion = "0";
                         loginRequest.androidApiVersion = "0";
                         loginRequest.appRequest="";
-                        loginRequest.deviceImei = "imei";//083f1df032b675b3
+                        loginRequest.deviceImei = "083f1df032b675b3";
 
 
                         JSONObject logInObject = new JSONObject(loginRequest.javaToJson());
@@ -207,46 +211,57 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                         jsonObject  = new JSONObject(response.toString());
                                     }
 
+                                    String msgStatus = jsonObject.getString("message");
 
-                                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                                    JSONObject userObject = dataObject.getJSONObject("user_data");
-                                    if (userObject.has("Errorstatus")) {
-                                        String errorMessage = userObject.getString("Errorstatus");
+                                    if(msgStatus.equalsIgnoreCase("failure")){
+                                        viewModel.noInterNetConnection(getCurrentContext());
+                                    }else {
+                                        JSONObject dataObject = jsonObject.getJSONObject("data");
+                                        JSONObject userObject = dataObject.getJSONObject("user_data");
+                                        if (userObject.has("Errorstatus")) {
+                                            String errorMessage = userObject.getString("Errorstatus");
 
-                                        if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
-                                        } else if (errorMessage.equalsIgnoreCase("Invalid Password!!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);;
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
+                                            if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else if (errorMessage.equalsIgnoreCase("Invalid Password!!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);;
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
 
-                                        } else if (errorMessage.equalsIgnoreCase("Invalid Login !!!")) {
-                                            loginError.imageId="0";
-                                            loginError.errorMessage = errorMessage;
-                                            loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
-                                            viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
-                                                    .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else if (errorMessage.equalsIgnoreCase("Invalid Login !!!")) {
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = getCurrentContext().getResources().getString(R.string.error_invalid_userId);
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else if(errorMessage.equalsIgnoreCase(" Please wait for 15 minutes you exceed limit more than 5 !!!")){
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = "Try after 15 Minutes!!!";
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            } else{
+
+                                            }
+
                                         } else {
-
+                                            // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
+                                            MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
+                                            viewModel.insertLoginData(monthlyTrackingDataEntity);
+                                            appSharedPreferences.setValidUserId(userId);
+                                            appSharedPreferences.setLoginStatus("done");
+                                            appSharedPreferences.setImeiNumber(getAllInstance.deviceUtils.getIMEINo1());
+                                            appSharedPreferences.setDeviceInfo(getAllInstance.deviceUtils.getDeviceInfo());
+                                            Intent intent = new Intent(getContext(), MpinActivity.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
                                         }
-
-                                    } else {
-                                       // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
-                                        MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
-                                        viewModel.insertLoginData(monthlyTrackingDataEntity);
-                                        appSharedPreferences.setValidUserId(userId);
-                                        appSharedPreferences.setLoginStatus("done");
-                                        appSharedPreferences.setImeiNumber(getAllInstance.deviceUtils.getIMEINo1());
-                                        appSharedPreferences.setDeviceInfo(getAllInstance.deviceUtils.getDeviceInfo());
-                                        Intent intent = new Intent(getContext(), MpinActivity.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
                                     }
 
                                 } catch (JSONException e) {
@@ -283,6 +298,9 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                             }
                         };
                         //https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login
+                        appUtils.showLog("URL::::"+ PrefrenceManager.LOGIN_URL,AuthFragment.class);
+                        appUtils.showLog("ENCRYPTED OBJECT::::"+ encryptedObject,AuthFragment.class);
+
                         volleyService.postDataVolley("synData", PrefrenceManager.LOGIN_URL, encryptedObject, mResultCallBack);
                         //volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservice/services/agey/login", encryptedObject, mResultCallBack);
 
@@ -303,6 +321,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
             navController.navigate(action);
         });
     }
+
+
 
     private void callObserver() {
         final Observer<Boolean> nameObserver = new Observer<Boolean>() {

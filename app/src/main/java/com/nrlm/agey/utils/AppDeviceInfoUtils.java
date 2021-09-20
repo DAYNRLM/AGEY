@@ -42,6 +42,9 @@ public class AppDeviceInfoUtils {
 
                 if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     imeiNo1 = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+                    Build.getSerial();
+
+                    appUtility.showLog("BUILD SERIAL "+ Build.getSerial(),AppDeviceInfoUtils.class);
 
                 }else if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     imeiNo1 = telephonyManager.getDeviceId(0);
@@ -55,6 +58,7 @@ public class AppDeviceInfoUtils {
             appUtility.showLog("Expection: "+e,AppDeviceInfoUtils.class);
         }
         //appSharedPreferences.setImeiNumber(imeiNo1);
+        appUtility.showLog("imeiiiiii: "+imeiNo1,AppDeviceInfoUtils.class);
         return imeiNo1;
     }
 

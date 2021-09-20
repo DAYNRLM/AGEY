@@ -59,6 +59,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -150,6 +152,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
 
             if(NetworkUtils.isInternetOn(getContext())){
                 customProgressDialog.showProgress(getCurrentContext().getResources().getString(R.string.dialog_loading), false);
+                String test= PrefrenceManager.SYNC_URL;
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.accumulate("user_id",appSharedPreferences.getValidUserId());
@@ -160,6 +163,7 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                     e.printStackTrace();
                 }
 
+                appUtils.showLog("*****Normal objectttt****"+jsonObject.toString(), MonthlyTrackingFragmentThree.class);
 
                 JSONObject encryptedObject =new JSONObject();
                 try {
@@ -191,6 +195,12 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                     @Override
                     public void notifySuccess(String requestType, JSONObject response) {
                         customProgressDialog.hideProgress();
+                        Calendar today = Calendar.getInstance();
+
+
+
+
+
                         LoginError loginError = new LoginError();
                         try {
                             if(response.has("data_Sync")){
@@ -198,13 +208,25 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                                 if(data_Sync.equalsIgnoreCase("Success")){
                                     loginError.imageId="1";
                                     loginError.errorMessage=getCurrentContext().getResources().getString(R.string.dialog_adapter_title);
-                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_msg_save)+(testObject.tracking_month+1)+"/"+testObject.tracking_year+getCurrentContext().getResources().getString(R.string.dialog_msg_save_continue);
+
+                                    SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+                                    today.set(Calendar.MONTH, Integer.parseInt(testObject.tracking_month));
+                                    String month_name = month_date.format(today.getTime());
+
+                                    //loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_msg_save)+(testObject.tracking_month+1)+"/"+testObject.tracking_year+getCurrentContext().getResources().getString(R.string.dialog_msg_save_continue);
+                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_msg_save)+" "+month_name+"/"+testObject.tracking_year+" "+getCurrentContext().getResources().getString(R.string.dialog_msg_save_continue);
                                     viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                             .observe(getViewLifecycleOwner(), resetObserver);
                                 }else {
                                     loginError.imageId="0";
                                     loginError.errorMessage=getCurrentContext().getResources().getString(R.string.dialog_not_save);
-                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_duplicate_entry)+(testObject.tracking_month+1)+"/"+testObject.tracking_year;
+
+                                    SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+                                    today.set(Calendar.MONTH, Integer.parseInt(testObject.tracking_month));
+                                    String month_name = month_date.format(today.getTime());
+
+                                    //loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_duplicate_entry)+(testObject.tracking_month+1)+"/"+testObject.tracking_year;
+                                    loginError.errorDetail=getCurrentContext().getResources().getString(R.string.dialog_duplicate_entry)+" "+month_name+"/"+testObject.tracking_year;
                                     viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                             .observe(getViewLifecycleOwner(), resetObserver);
 
