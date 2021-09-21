@@ -85,7 +85,7 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
     public void onResume() {
         super.onResume();
 
-        categoryAdapter =new ArrayAdapter<String>(requireContext(), R.layout.spinner_text,viewModel.getAllcategory() );
+        categoryAdapter =new ArrayAdapter<String>(requireContext(), R.layout.spinner_text,viewModel.getSelectedCategory() );
         categoryAdapter.setDropDownViewResource(R.layout.spinner_text);
         binding.spinnerSelectCat.setAdapter(categoryAdapter);
         categoryAdapter.notifyDataSetChanged();
@@ -119,7 +119,7 @@ public class MonthlyTrackingFragment extends BaseFragment<HomeViewModel, Fragmen
                 testObject.cat_of_vehicle = "P";
             }*/
 
-            String value = viewModel.getAllcategory().get(i).equalsIgnoreCase("Goods")?"G":"P";
+            String value = viewModel.getSelectedCategory().get(i).equalsIgnoreCase("Goods")?"G":"P";
             testObject.cat_of_vehicle=value;
         });
 

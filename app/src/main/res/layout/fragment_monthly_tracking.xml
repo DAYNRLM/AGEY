@@ -106,6 +106,7 @@
                                 android:inputType="none"
                                 android:textColor="@color/black"
                                 android:focusableInTouchMode="false"
+                                android:clickable="false"
                                 android:focusable="false"
                                 android:textSize="15dp" />
 
@@ -199,7 +200,7 @@
                                 android:id="@+id/et_openingKm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:maxLength="7"
+                                android:maxLength="6"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -215,7 +216,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:text="@{testObj.clossingKm}"
                                 android:id="@+id/et_closingKm"
-                                android:maxLength="7"
+                                android:maxLength="6"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular"
@@ -235,6 +236,7 @@
                                 android:id="@+id/et_totlKm"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="6"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="none" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -273,6 +275,7 @@
                                 android:id="@+id/et_amountRepaid"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="6"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -288,6 +291,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/et_blancedAmount"
                                 android:layout_width="match_parent"
+                                android:maxLength="6"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
@@ -306,6 +310,7 @@
                                 android:id="@+id/et_noOfEmi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="4"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -323,6 +328,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/montserrat_regular"
+                                android:maxLength="6"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -338,6 +344,7 @@
                                 android:id="@+id/et_monthlyIncome"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLength="6"
                                 android:fontFamily="@font/montserrat_regular"
                                 android:inputType="number" />
                         </com.google.android.material.textfield.TextInputLayout>

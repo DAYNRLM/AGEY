@@ -384,6 +384,27 @@ public class HomeRepository extends BaseRepository{
         return categoryEntities;
     }
 
+    public List<CategoryEntity> getSelectedCategory(){
+        List<CategoryEntity> categoryEntities =null;
+        try {
+            Callable<List<CategoryEntity>> callable = new Callable<List<CategoryEntity>>() {
+                @Override
+                public List<CategoryEntity> call() throws Exception {
+
+                    AssignVehicleDataEntity vehicleObject = assignVehicleDao.getAllData(appSharedPreferences.getVehicleRegNum());
+                    return categoryDao.getSelectedAllData(vehicleObject.vehicleCategory);
+                }
+            };
+
+            Future<List<CategoryEntity>> future = Executors.newSingleThreadExecutor().submit(callable);
+            categoryEntities =future.get();
+
+        }catch (Exception e){
+
+        }
+        return categoryEntities;
+    }
+
     public  void deleteDataBaseTable(){
         deleteTables();
     }

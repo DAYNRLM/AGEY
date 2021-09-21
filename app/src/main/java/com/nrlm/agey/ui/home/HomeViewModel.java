@@ -92,6 +92,15 @@ public class HomeViewModel  extends ViewModel {
         return catList;
     }
 
+    public List<String> getSelectedCategory(){
+        List<String>  selectCat = new ArrayList<>();
+        List<CategoryEntity> categoryEntities = homeRepository.getSelectedCategory();
+        for(CategoryEntity ct : categoryEntities){
+            selectCat.add(ct.categoryName);
+        }
+        return selectCat;
+    }
+
     public List<String> getDaysList(){
         List<String> days = new ArrayList<>();
         for(int i=0;i<30;i++){

@@ -378,6 +378,7 @@
                                     android:id="@+id/et_taxAmount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:maxLength="6"
                                     android:fontFamily="@font/montserrat_regular"
                                     android:inputType="number" />
                             </com.google.android.material.textfield.TextInputLayout>

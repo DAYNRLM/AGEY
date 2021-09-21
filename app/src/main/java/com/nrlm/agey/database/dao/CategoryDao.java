@@ -20,4 +20,7 @@ public interface CategoryDao {
 
     @Query("DELETE FROM CategoryEntity")
     void deleteTable();
+
+    @Query("select * from CategoryEntity WHERE categoruId =:catId")
+    List<CategoryEntity> getSelectedAllData(String catId);
 }
