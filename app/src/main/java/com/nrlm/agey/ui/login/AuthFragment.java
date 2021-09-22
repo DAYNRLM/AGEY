@@ -77,8 +77,6 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
     LayoutInflater layoutInflater;
 
-    String SITE_KEY = "6LeV72ocAAAAADp9wIliLmeqlNv05cEJC3Jqd3hz";
-    String SECRET_KEY = "6LeV72ocAAAAAOnGK2nYDKjgE1wlgAX-vGlr7qrI";
 
 
     @Override

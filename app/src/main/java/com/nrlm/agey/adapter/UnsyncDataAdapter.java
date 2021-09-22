@@ -23,13 +23,24 @@ import com.nrlm.agey.network.vollyCall.VolleyService;
 import com.nrlm.agey.ui.home.AboutUsFragmentDirections;
 import com.nrlm.agey.ui.home.HomeViewModel;
 import com.nrlm.agey.utils.AppUtils;
+import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.CustomProgressDialog;
+import com.nrlm.agey.utils.PrefrenceManager;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import static com.nrlm.agey.network.vollyCall.VolleyService.volleyService;
 
@@ -79,6 +90,31 @@ public class UnsyncDataAdapter extends RecyclerView.Adapter<UnsyncDataAdapter.My
             customProgressDialog.showProgress(context.getResources().getString(R.string.dialog_loading), false);
             try {
                 JSONObject jsonObject =homeViewModel.getSyncObject(daataItem.get(position).id);
+
+                JSONObject encryptedObject =new JSONObject();
+                try {
+                    Cryptography cryptography = new Cryptography();
+
+                    encryptedObject.accumulate("data",cryptography.encrypt(jsonObject.toString()));
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+
                 mResultCallBack = new VolleyResult() {
                     @Override
                     public void notifySuccess(String requestType, JSONObject response) {
@@ -122,7 +158,8 @@ public class UnsyncDataAdapter extends RecyclerView.Adapter<UnsyncDataAdapter.My
                         appUtils.showLog("VOLLEY ERROR"+error.toString(),UnsyncDataAdapter.class);
                     }
                 };
-                volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data", jsonObject, mResultCallBack);
+               // volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data", jsonObject, mResultCallBack);
+                volleyService.postDataVolley("synData", PrefrenceManager.SYNC_URL, encryptedObject, mResultCallBack);
             } catch (Exception e) {
                 appUtils.showLog("Expection in Main JSON"+e.toString(),UnsyncDataAdapter.class);
             }

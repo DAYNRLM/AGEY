@@ -197,10 +197,6 @@ public class MonthlyTrackingFragmentThree extends BaseFragment<HomeViewModel, Fr
                         customProgressDialog.hideProgress();
                         Calendar today = Calendar.getInstance();
 
-
-
-
-
                         LoginError loginError = new LoginError();
                         try {
                             if(response.has("data_Sync")){
