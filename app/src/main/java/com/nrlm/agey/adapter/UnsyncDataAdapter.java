@@ -75,7 +75,7 @@ public class UnsyncDataAdapter extends RecyclerView.Adapter<UnsyncDataAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull UnsyncDataAdapter.MyViewHolder holder, int position) {
-        holder.itemBinding.tvRegNumber.setText(daataItem.get(position).userID);
+        holder.itemBinding.tvRegNumber.setText(daataItem.get(position).vehicleRegistrationNumber);
         holder.itemBinding.tvUserId.setText(daataItem.get(position).userID);
         holder.itemBinding.tvYear.setText(daataItem.get(position).tracking_year);
 
@@ -158,6 +158,7 @@ public class UnsyncDataAdapter extends RecyclerView.Adapter<UnsyncDataAdapter.My
                         appUtils.showLog("VOLLEY ERROR"+error.toString(),UnsyncDataAdapter.class);
                     }
                 };
+                appUtils.showLog("Encrypted REQUEST    "+encryptedObject.toString(),UnsyncDataAdapter.class);
                // volleyService.postDataVolley("synData", "https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data", jsonObject, mResultCallBack);
                 volleyService.postDataVolley("synData", PrefrenceManager.SYNC_URL, encryptedObject, mResultCallBack);
             } catch (Exception e) {

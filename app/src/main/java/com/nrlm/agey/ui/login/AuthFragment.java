@@ -152,7 +152,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                         loginRequest.androidVersion = "0";
                         loginRequest.androidApiVersion = "0";
                         loginRequest.appRequest="";
-                        loginRequest.deviceImei = "083f1df032b675b3";
+                        loginRequest.deviceImei = "083f1df032b675b3";//
 
 
                         JSONObject logInObject = new JSONObject(loginRequest.javaToJson());
@@ -253,7 +253,12 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                                 viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                         .observe(getViewLifecycleOwner(), resetObserver);
                                             } else{
-
+                                                //This IMEI No. is used by another user
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = "You are already logged in on This mobile";
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
                                             }
 
                                         } else {
