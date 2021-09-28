@@ -26,7 +26,7 @@ public class PrefrenceManager {
      }
 
      /**for local*/
-   /* public static final String HTTP_TYPE = "http";
+ /*   public static final String HTTP_TYPE = "http";
     public static final String IP_ADDRESS = "10.197.183.105:8080";
     public static final String NRLM_STATUS = "nrlmwebservice";*/
 

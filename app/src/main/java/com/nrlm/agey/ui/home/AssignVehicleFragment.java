@@ -89,23 +89,27 @@ public class AssignVehicleFragment extends BaseFragment<HomeViewModel,FragmentAs
 
         binding.spinnerAssignVehicle.setOnItemClickListener((adapterView, view1, i, l) -> {
             regNum = viewModel.getRegistredNumber().get(i);
-            binding.setAssignVehicleModel(viewModel.getVehicleData(regNum));
-            appSharedPreferences.setVehicleRegNum(regNum);
-            appSharedPreferences.setBlockCode(viewModel.getVehicleData(regNum).blockCode);
-            appSharedPreferences.setStateShortName(viewModel.getUserDetailData().state_short_name);
-            appSharedPreferences.setStateShortCode(viewModel.getUserDetailData().state_code);
+            if(regNum.equalsIgnoreCase("Data Not Found")){
+                ViewUtilsKt.tost(getContext(), regNum);
+                regNum="";
+            }else {
+                binding.setAssignVehicleModel(viewModel.getVehicleData(regNum));
+                appSharedPreferences.setVehicleRegNum(regNum);
+                appSharedPreferences.setBlockCode(viewModel.getVehicleData(regNum).blockCode);
+                appSharedPreferences.setStateShortName(viewModel.getUserDetailData().state_short_name);
+                appSharedPreferences.setStateShortCode(viewModel.getUserDetailData().state_code);
 
-            binding.etVehicleType.setText(viewModel.vechileType(viewModel.getVehicleData(regNum).vehicleType));
-            binding.etManufactureOfVehicle.setText(viewModel.getManufacturer(viewModel.getVehicleData(regNum).vehicleManufacture));
-            binding.etVehicleModel.setText(viewModel.getModel(viewModel.getVehicleData(regNum).vehicleManufacture,viewModel.getVehicleData(regNum).vehicleModel));
+                binding.etVehicleType.setText(viewModel.vechileType(viewModel.getVehicleData(regNum).vehicleType));
+                binding.etManufactureOfVehicle.setText(viewModel.getManufacturer(viewModel.getVehicleData(regNum).vehicleManufacture));
+                binding.etVehicleModel.setText(viewModel.getModel(viewModel.getVehicleData(regNum).vehicleManufacture, viewModel.getVehicleData(regNum).vehicleModel));
 
-            ViewUtilsKt.tost(getContext(),regNum);
+                ViewUtilsKt.tost(getContext(), regNum);
 
-            testObject = TestObject.getInstance();
-            appUtils.showLog("object is: "+testObject,AssignVehicleFragment.class);
-            SampleObj sampleObj = new SampleObj();
-            appUtils.showLog("object is Sample: "+sampleObj,AssignVehicleFragment.class);
-
+                testObject = TestObject.getInstance();
+                appUtils.showLog("object is: " + testObject, AssignVehicleFragment.class);
+                SampleObj sampleObj = new SampleObj();
+                appUtils.showLog("object is Sample: " + sampleObj, AssignVehicleFragment.class);
+            }
         });
 
         binding.btnGoToMonthelyTracking.setOnClickListener(view1 -> {

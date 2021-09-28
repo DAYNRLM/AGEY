@@ -254,9 +254,15 @@ public class HomeRepository extends BaseRepository{
         List<String> regNumList = new ArrayList<>();
         List<AssignVehicleDataEntity> assingList =getVehicleData();
 
-        for(AssignVehicleDataEntity data:assingList){
-            regNumList.add(data.vehicleRegNumber);
+        if(assingList.isEmpty()){
+            regNumList.add("Data Not Found");
+        }else {
+            for(AssignVehicleDataEntity data:assingList){
+                regNumList.add(data.vehicleRegNumber);
+            }
         }
+
+
         return regNumList;
     }
 

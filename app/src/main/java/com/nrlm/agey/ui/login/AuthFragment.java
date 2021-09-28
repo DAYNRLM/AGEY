@@ -142,7 +142,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                     try {
                         LoginRequest loginRequest = new LoginRequest();
                         loginRequest.userId = userId.toUpperCase();
-                        loginRequest.password = appUtils.getSha256(password);
+                        loginRequest.password = appUtils.getSha256(password);//"c6024fd19953c32dc6e2b8fe91684a16a889cc8482157f1ec652616517537239";
                         loginRequest.deviceName = deviceUtils.getDeviceInfo();
                         loginRequest.appVersion = BuildConfig.VERSION_NAME;
                         loginRequest.todayDate = getAllInstance.dateFactroy.getTodayDate();
@@ -218,9 +218,6 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                         JSONObject userObject = dataObject.getJSONObject("user_data");
                                         if (userObject.has("Errorstatus")) {
                                             String errorMessage = userObject.getString("Errorstatus");
-
-                                            //
-
                                             if (errorMessage.equalsIgnoreCase("Invalid UserID !!!")) {
                                                 loginError.imageId="0";
                                                 loginError.errorMessage = errorMessage;
@@ -263,6 +260,8 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                                         } else {
                                             // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
+
+
                                             MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
                                             viewModel.insertLoginData(monthlyTrackingDataEntity);
                                             appSharedPreferences.setValidUserId(userId);

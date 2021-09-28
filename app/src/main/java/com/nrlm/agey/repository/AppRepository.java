@@ -315,6 +315,7 @@ public class AppRepository extends BaseRepository {
 
 
             List<MainDataResponse.VehicleDatum> vehicleData =assignObject.getVehicleData();
+            if(vehicleData.get(0).getAmountPaidAsOn()!=null){
             for(MainDataResponse.VehicleDatum vehicleObject:vehicleData){
                 AssignVehicleDataEntity assignVehicleDataEntity = new AssignVehicleDataEntity();
                 assignVehicleDataEntity.blockCode =assignObject.getBlockCode();
@@ -359,6 +360,7 @@ public class AppRepository extends BaseRepository {
                     lastMonthDetailEntity.closing_killometer=lastMonthObject.getClosingKillometer();
                     insertLastMonthEntity(lastMonthDetailEntity);
                 }
+            }
             }
         }
 
