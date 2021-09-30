@@ -13,6 +13,8 @@ public class PrefrenceManager {
      static final String PREF_KEY_STATE_SHORT_CODE = "stateShortCODE";
      static final String PREF_KEY_LOGOUT_TIME = "logOutTime";
      static final String PREF_KEY_CHANG_LANGUAGE = "changeLanguage";
+     static final String PREF_KEY_MPIN_COUNTER = "mpinCounter";
+     static final String PREF_KEY_COUNTDOWN_TIME = "countDownTime";
 
 
 

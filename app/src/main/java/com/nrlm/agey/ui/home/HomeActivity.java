@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         tollBar = findViewById(R.id.tollBar);
         navigation_view = findViewById(R.id.navigation_view);
         home_drawer_layout = findViewById(R.id.home_drawer_layout);

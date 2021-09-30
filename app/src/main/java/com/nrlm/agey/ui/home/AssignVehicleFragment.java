@@ -83,6 +83,7 @@ public class AssignVehicleFragment extends BaseFragment<HomeViewModel,FragmentAs
         super.onViewCreated(view, savedInstanceState);
 
         setHasOptionsMenu(true);
+        appSharedPreferences.setMpinCount("3");
 
         checkNotificationStatus();
 
