@@ -15,6 +15,8 @@ public class PrefrenceManager {
      static final String PREF_KEY_CHANG_LANGUAGE = "changeLanguage";
      static final String PREF_KEY_MPIN_COUNTER = "mpinCounter";
      static final String PREF_KEY_COUNTDOWN_TIME = "countDownTime";
+     static final String PREF_KEY_GENERATED_OTP = "geeratedOtp";
+
 
 
 
@@ -28,24 +30,27 @@ public class PrefrenceManager {
      }
 
      /**for local*/
- /*   public static final String HTTP_TYPE = "http";
+    public static final String HTTP_TYPE = "http";
     public static final String IP_ADDRESS = "10.197.183.105:8080";
-    public static final String NRLM_STATUS = "nrlmwebservice";*/
+    public static final String NRLM_STATUS = "nrlmwebservice";
 
      /** for live demo**/
 
-     public static final String HTTP_TYPE = "https";
+     /*public static final String HTTP_TYPE = "https";
      public static final String IP_ADDRESS = "nrlm.gov.in";
-     public static final String NRLM_STATUS = "nrlmwebservicedemo";
+     public static final String NRLM_STATUS = "nrlmwebservicedemo";*/
 
      /***for live****/
-  /*   public static final String HTTP_TYPE="https";
+    /* public static final String HTTP_TYPE="https";
      public static final String IP_ADDRESS="nrlm.gov.in";
      public static final String NRLM_STATUS = "nrlmwebservice";*/
 
      public static final String LOGIN_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/agey/login";
      public static final String SYNC_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/ageysync/data";
+     public static final String SEND_OTP_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/forgotagey/message";
+     public static final String RESET_PASSWORD_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/forgotagey/resetPassword";
 
      //https://nrlm.gov.in/nrlmwebservicedemo/services/agey/login
      //https://nrlm.gov.in/nrlmwebservicedemo/services/ageysync/data
+     // https://nrlm.gov.in/nrlmwebservicedemo/
 }

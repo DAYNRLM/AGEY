@@ -23,6 +23,7 @@ public class AppUtils {
     public static AppUtils utilsInstance;
     private static boolean wantToShow = true;
 
+
     public synchronized static AppUtils getInstance() {
         if (utilsInstance == null) {
             utilsInstance = new AppUtils();

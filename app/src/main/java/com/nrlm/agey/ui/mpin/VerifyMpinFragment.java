@@ -23,6 +23,7 @@ import com.nrlm.agey.utils.ViewUtilsKt;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -79,13 +80,24 @@ public class VerifyMpinFragment extends BaseFragment<MpinViewModel, FragmentVeri
         });
 
         binding.btnVerify.setOnClickListener(view1 -> {
-            checkTime();
             String getMpin = binding.pinviewGetMpin.getText().toString();
-            if (counter <=1 ) {
 
-                binding.tvMpieError.setVisibility(View.VISIBLE);
-                binding.tvMpieError.setText("Wrong PIN limit reached. Try after 15 minutes.");
-                ViewUtilsKt.tost(getCurrentContext(), "not allowed");
+            if (isTimeValidForLogin()) {
+                binding.tvMpieError.setVisibility(View.GONE);
+            }
+
+            if (counter < 1) {
+                if (appSharedPreferences.getCountDownTime().equalsIgnoreCase("")) {
+                    checkTime();
+                    binding.tvMpieError.setVisibility(View.VISIBLE);
+                    binding.tvMpieError.setText("Wrong PIN limit reached. Try after 15 minutes.");
+                    ViewUtilsKt.tost(getCurrentContext(), "not allowed");
+                } else {
+                    binding.tvMpieError.setVisibility(View.VISIBLE);
+                    binding.tvMpieError.setText("Wrong PIN limit reached. Try after 15 minutes.");
+                    ViewUtilsKt.tost(getCurrentContext(), "not allowed");
+                }
+
             } else {
                 if (getMpin.isEmpty()) {
                     ViewUtilsKt.tost(getCurrentContext(), getCurrentContext().getResources().getString(R.string.toast_mpin_not_empty));
@@ -99,42 +111,68 @@ public class VerifyMpinFragment extends BaseFragment<MpinViewModel, FragmentVeri
                         ViewUtilsKt.tost(getCurrentContext(), getCurrentContext().getResources().getString(R.string.toast_mpin_wrong_msg));
                         binding.pinviewGetMpin.setText("");
                         binding.tvMpieError.setVisibility(View.VISIBLE);
-                        binding.tvMpieError.setText("Wrong PIN "+ counter+" attempt remaining.");
+                        binding.tvMpieError.setText("Wrong PIN " + counter + " attempt remaining.");
+                        counter = counter - 1;
                         appSharedPreferences.setMpinCount("" + counter);
-                        counter=counter-1;
                         ViewUtilsKt.tost(getCurrentContext(), "" + counter);
                     }
                 }
             }
+
+
         });
 
 
     }
 
     private void checkTime() {
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss aa");
-        Date date1 = null;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Calendar calendar = Calendar.getInstance();
+        appUtils.showLog("diff time   ::" + df.format(calendar.getTime()), VerifyMpinFragment.class);
+        // Add 10 minutes to current date
+        calendar.add(Calendar.MINUTE, 1);
+        appUtils.showLog("time after 10  min.  ::" + df.format(calendar.getTime()), VerifyMpinFragment.class);
+        appSharedPreferences.setCountDownTime("" + df.format(calendar.getTime()));
+
+        df.format(calendar.getTime());
+
+    }
+
+    public boolean isTimeValidForLogin() {
+        boolean status = false;
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        if (appSharedPreferences.getCountDownTime().equalsIgnoreCase("")) {
+            status = false;
+        } else {
+            Date savedDateTime = getDateFormate(appSharedPreferences.getCountDownTime());
+            Date currentDateTime = getDateFormate(df.format(calendar.getTime()));
+            appUtils.showLog("savedDateTime   ::" + savedDateTime, VerifyMpinFragment.class);
+            appUtils.showLog("currentDateTime   ::" + currentDateTime, VerifyMpinFragment.class);
+            if (currentDateTime.compareTo(savedDateTime) >= 0) {
+                status = true;
+                appSharedPreferences.setCountDownTime("");
+                appSharedPreferences.setMpinCount("3");
+            }
+        }
+        return status;
+    }
+
+
+    public Date getDateFormate(String date) {
+        Date convertedDate = null;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
-            date1 = format.parse("08:00:12 pm");
-            Date date2 = format.parse("05:30:12 pm");
-            long mills = date1.getTime() - date2.getTime();
-           /* Log.v("Data1", ""+date1.getTime());
-            Log.v("Data2", ""+date2.getTime());*/
-           /* int hours = (int) (mills/(1000 * 60 * 60));
-            int mins = (int) (mills % (1000*60*60));*/
-
-
-            long millis = date1.getTime() - date2.getTime();
-            int hours = (int) (millis / (1000 * 60 * 60));
-            int mins = (int) ((millis / (1000 * 60)) % 60);
-
-            String diff = hours + ":" + mins;
-
-            appUtils.showLog("diff time   ::"+diff,VerifyMpinFragment.class);
+            convertedDate = sdf.parse(date);
+            sdf.format(convertedDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        return convertedDate;
+    }
 
+    public void goToNextScreen() {
 
     }
 

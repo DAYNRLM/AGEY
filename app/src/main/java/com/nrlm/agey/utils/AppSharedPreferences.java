@@ -179,13 +179,24 @@ public class AppSharedPreferences {
     }
 
     public String getCountDownTime() {
-        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_COUNTDOWN_TIME, "3");
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_COUNTDOWN_TIME, "");
     }
 
     public void setCountDownTime(String value)
     {
         this.prefsEditor=appSharedPrefs.edit();
         prefsEditor.putString(PrefrenceManager.PREF_KEY_COUNTDOWN_TIME,value);
+        prefsEditor.apply();
+    }
+
+    public String getGenOtp() {
+        return appSharedPrefs.getString(PrefrenceManager.PREF_KEY_GENERATED_OTP, "");
+    }
+
+    public void setGenOtp(String value)
+    {
+        this.prefsEditor=appSharedPrefs.edit();
+        prefsEditor.putString(PrefrenceManager.PREF_KEY_GENERATED_OTP,value);
         prefsEditor.apply();
     }
 

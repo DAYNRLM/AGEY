@@ -22,12 +22,22 @@ import com.nrlm.agey.network.vollyCall.VolleyResult;
 import com.nrlm.agey.repository.AppRepository;
 import com.nrlm.agey.ui.BaseFragment;
 import com.nrlm.agey.ui.home.MonthlyTrackingFragmentThreeDirections;
+import com.nrlm.agey.utils.Cryptography;
 import com.nrlm.agey.utils.NetworkUtils;
 import com.nrlm.agey.utils.PrefrenceManager;
 import com.nrlm.agey.utils.ViewUtilsKt;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class ForgetPasswordFragment extends BaseFragment<AuthViewModel, FragmentForgetPasswordBinding, AppRepository, AuthViewModelfactory> {
     LayoutInflater layoutInflater;
@@ -79,6 +89,9 @@ public class ForgetPasswordFragment extends BaseFragment<AuthViewModel, Fragment
                 ViewUtilsKt.tost(getCurrentContext(), getCurrentContext().getResources().getString(R.string.toast_password_error_msg));
             } else if (binding.etEnterOtp.getText().toString().isEmpty() || binding.etEnterOtp.getText().toString().length() < 4) {
                 ViewUtilsKt.tost(getCurrentContext(), getCurrentContext().getResources().getString(R.string.toast_otp_error_msg));
+            } else if(binding.etEnterOtp.getText().toString().equalsIgnoreCase(appSharedPreferences.getGenOtp())){
+                ViewUtilsKt.tost(getCurrentContext(), "Entered OTP is wrong");
+                binding.etEnterOtp.setText("");
             } else {
 
                 if (NetworkUtils.isInternetOn(getCurrentContext())) {
@@ -96,6 +109,30 @@ public class ForgetPasswordFragment extends BaseFragment<AuthViewModel, Fragment
                         e.printStackTrace();
                     }
 
+
+                    JSONObject encryptedObject =new JSONObject();
+                    try {
+                        Cryptography cryptography = new Cryptography();
+                        encryptedObject.accumulate("data",cryptography.encrypt(restObject.toString()));
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchPaddingException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    } catch (InvalidAlgorithmParameterException e) {
+                        e.printStackTrace();
+                    } catch (IllegalBlockSizeException e) {
+                        e.printStackTrace();
+                    } catch (BadPaddingException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    appUtils.showLog("JSON encrypted::" + encryptedObject.toString(), AuthFragment.class);
+
                     mResultCallBack = new VolleyResult() {
                         @Override
                         public void notifySuccess(String requestType, JSONObject response) {
@@ -111,9 +148,7 @@ public class ForgetPasswordFragment extends BaseFragment<AuthViewModel, Fragment
                                                 navController.navigate(action);
                                             }).show();
                                 } else {
-
                                     String msg =  response.getString("status") + getCurrentContext().getResources().getString(R.string.dialog_error_reset_msg);
-
                                     new MaterialAlertDialogBuilder(getContext()).setTitle(getCurrentContext().getResources().getString(R.string.dialog_reset_password)).setIcon(R.drawable.ic_baseline_signal_wifi_connected_no_internet)
                                             .setMessage(msg)
                                             .setPositiveButton(getCurrentContext().getResources().getString(R.string.dialog_ok_btn), (dialogInterface, i) -> {
@@ -137,19 +172,17 @@ public class ForgetPasswordFragment extends BaseFragment<AuthViewModel, Fragment
 
                         @Override
                         public void notifyError(String requestType, VolleyError error) {
+                            customProgressDialog.hideProgress();
+                            ViewUtilsKt.tost(getCurrentContext(), "Server Error!! Try again later..");
 
                         }
                     };
-                    volleyService.postDataVolley("resetPassword", "https://nrlm.gov.in/nrlmwebservicedemo/services/forgotagey/resetPassword", restObject, mResultCallBack);
-
-
+                    volleyService.postDataVolley("resetPassword", PrefrenceManager.RESET_PASSWORD_URL, encryptedObject, mResultCallBack);
                 } else {
                     appUtils.showLog("*****NetWork is OFFF****", ForgetPasswordFragment.class);
                     viewModel.noInterNetConnection(getCurrentContext());
                 }
             }
         });
-
-
     }
 }
