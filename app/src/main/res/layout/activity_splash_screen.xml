@@ -7,7 +7,13 @@
     android:orientation="vertical"
     tools:context=".ui.SplashScreenActivity">
 
-    <LinearLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_screen"
+        android:scaleType="fitXY"/>
+
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -24,12 +30,12 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/aajeevika_ic"/>
 
-           <!-- <ImageView
+           &lt;!&ndash; <ImageView
                 android:layout_margin="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/emblem"/>-->
+                android:src="@drawable/emblem"/>&ndash;&gt;
 
         </RelativeLayout>
 
@@ -67,6 +73,6 @@
             android:fontFamily="@font/manrope_regular"
             android:textColor="@color/black"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>
