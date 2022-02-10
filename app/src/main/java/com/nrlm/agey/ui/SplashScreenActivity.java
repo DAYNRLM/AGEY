@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.nrlm.agey.MainActivity;
 import com.nrlm.agey.R;
@@ -13,6 +15,7 @@ import com.nrlm.agey.ui.login.AuthActivity;
 import com.nrlm.agey.ui.mpin.MpinActivity;
 import com.nrlm.agey.utils.AppSharedPreferences;
 import com.nrlm.agey.utils.AppUtils;
+import com.nrlm.agey.utils.PrefrenceManager;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -20,6 +23,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     AppSharedPreferences appSharedPreferences;
     AppUtils appUtils;
+
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         appSharedPreferences =AppSharedPreferences.getInstance(this);
         appUtils = AppUtils.getInstance();
+
+        imageView =  findViewById(R.id.iv_imageDemo);
+
+        if(PrefrenceManager.APP_STATUS.equalsIgnoreCase("demo")){
+            imageView.setVisibility(View.VISIBLE);
+        }
 
         setLocal();
 

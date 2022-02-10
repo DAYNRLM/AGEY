@@ -27,19 +27,22 @@ public class PrefrenceManager {
 
      /**for local*/
   /*  public static final String HTTP_TYPE = "http";
-    public static final String IP_ADDRESS = "10.197.183.105:8080";
-    public static final String NRLM_STATUS = "nrlmwebservice";*/
+      public static final String IP_ADDRESS = "10.197.183.105:8080";
+      public static final String NRLM_STATUS = "nrlmwebservice";
+       public static final String APP_STATUS = "local";*/
 
      /** for live demo**/
 
-     public static final String HTTP_TYPE = "https";
+    /* public static final String HTTP_TYPE = "https";
      public static final String IP_ADDRESS = "nrlm.gov.in";
      public static final String NRLM_STATUS = "nrlmwebservicedemo";
+     public static final String APP_STATUS = "demo";*/
 
      /***for live****/
-    /* public static final String HTTP_TYPE="https";
+     public static final String HTTP_TYPE="https";
      public static final String IP_ADDRESS="nrlm.gov.in";
-     public static final String NRLM_STATUS = "nrlmwebservice";*/
+     public static final String NRLM_STATUS = "nrlmwebservice";
+     public static final String APP_STATUS = "live";
 
      public static final String LOGIN_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/agey/login";
      public static final String SYNC_URL = HTTP_TYPE + "://" + IP_ADDRESS + "/" + NRLM_STATUS + "/services/ageysync/data";

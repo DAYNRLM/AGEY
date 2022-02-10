@@ -152,7 +152,7 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                         loginRequest.androidVersion = "0";
                         loginRequest.androidApiVersion = "0";
                         loginRequest.appRequest="";
-                        loginRequest.deviceImei = "083f1df032b675b3";//
+                        loginRequest.deviceImei = "866131044773055";//imei
 
 
                         JSONObject logInObject = new JSONObject(loginRequest.javaToJson());
@@ -249,8 +249,13 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
                                                 loginError.errorDetail = "Try after 15 Minutes!!!";
                                                 viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
                                                         .observe(getViewLifecycleOwner(), resetObserver);
-                                            } else{
-                                                //This IMEI No. is used by another user
+                                            } else if(errorMessage.equalsIgnoreCase("Vechile information Not Found !!!")){
+                                                loginError.imageId="0";
+                                                loginError.errorMessage = errorMessage;
+                                                loginError.errorDetail = "Vechile information Not Found !!!";
+                                                viewModel.showErrorDialog(loginError, getCurrentContext(), layoutInflater)
+                                                        .observe(getViewLifecycleOwner(), resetObserver);
+                                            }else{//This IMEI No. is used by another user
                                                 loginError.imageId="0";
                                                 loginError.errorMessage = errorMessage;
                                                 loginError.errorDetail = "You are already logged in on This mobile";
@@ -260,8 +265,6 @@ public class AuthFragment extends BaseFragment<AuthViewModel, FragmentAuthBindin
 
                                         } else {
                                             // MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(response.toString());
-
-
                                             MainDataResponse monthlyTrackingDataEntity = MainDataResponse.jsonToJava(convertedData);
                                             viewModel.insertLoginData(monthlyTrackingDataEntity);
                                             appSharedPreferences.setValidUserId(userId);

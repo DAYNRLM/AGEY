@@ -307,12 +307,11 @@ public class AppRepository extends BaseRepository {
 
         List<MainDataResponse.AssignDatum> assignData = monthlyMainResponse.getData().getAssignData();
         for(MainDataResponse.AssignDatum assignObject:assignData){
-            BlockEntity blockEntity = new BlockEntity();
-            blockEntity.block_code = assignObject.getBlockCode();
-            blockEntity.block_name = assignObject.getBlockName();
-            insertBlockEntity(blockEntity);
-
-
+            if (assignObject.getBlockName()!=null){
+                BlockEntity blockEntity = new BlockEntity();
+                blockEntity.block_code = assignObject.getBlockCode();
+                blockEntity.block_name = assignObject.getBlockName();
+                insertBlockEntity(blockEntity);
 
             List<MainDataResponse.VehicleDatum> vehicleData =assignObject.getVehicleData();
             if(vehicleData.get(0).getAmountPaidAsOn()!=null){
@@ -361,6 +360,9 @@ public class AppRepository extends BaseRepository {
                     insertLastMonthEntity(lastMonthDetailEntity);
                 }
             }
+            }
+            }else {
+                return;
             }
         }
 
